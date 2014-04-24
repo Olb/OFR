@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F421587F1908A8DE00343326 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421587E1908A8DE00343326 /* CoreLocation.framework */; };
+		F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */; };
 		F48EBE60190851C800935701 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE5F190851C800935701 /* Foundation.framework */; };
 		F48EBE62190851C800935701 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE61190851C800935701 /* CoreGraphics.framework */; };
 		F48EBE64190851C800935701 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE63190851C800935701 /* UIKit.framework */; };
@@ -19,6 +21,11 @@
 		F48EBE7B190851C800935701 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE63190851C800935701 /* UIKit.framework */; };
 		F48EBE83190851C800935701 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F48EBE81190851C800935701 /* InfoPlist.strings */; };
 		F48EBE85190851C800935701 /* OriginsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EBE84190851C800935701 /* OriginsTests.m */; };
+		F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EBE911908554100935701 /* BPBLoginViewController.m */; };
+		F48EBE941908554100935701 /* BPBLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48EBE921908554100935701 /* BPBLoginViewController.xib */; };
+		F48EBE98190859CC00935701 /* BPBMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */; };
+		F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */; };
+		F48EBE9B190860CC00935701 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE9A190860CC00935701 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F421587E1908A8DE00343326 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBStoreLocationAnnotation.h; path = Origins/BPBStoreLocationAnnotation.h; sourceTree = "<group>"; };
+		F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBStoreLocationAnnotation.m; path = Origins/BPBStoreLocationAnnotation.m; sourceTree = "<group>"; };
+		F43309B819095A8D00AB4771 /* BPBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPBConstants.h; sourceTree = "<group>"; };
 		F48EBE5C190851C800935701 /* Origins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Origins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48EBE5F190851C800935701 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F48EBE61190851C800935701 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +59,13 @@
 		F48EBE80190851C800935701 /* OriginsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OriginsTests-Info.plist"; sourceTree = "<group>"; };
 		F48EBE82190851C800935701 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F48EBE84190851C800935701 /* OriginsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OriginsTests.m; sourceTree = "<group>"; };
+		F48EBE901908554100935701 /* BPBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBLoginViewController.h; path = Origins/BPBLoginViewController.h; sourceTree = "<group>"; };
+		F48EBE911908554100935701 /* BPBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBLoginViewController.m; path = Origins/BPBLoginViewController.m; sourceTree = "<group>"; };
+		F48EBE921908554100935701 /* BPBLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BPBLoginViewController.xib; path = Origins/BPBLoginViewController.xib; sourceTree = "<group>"; };
+		F48EBE95190859CC00935701 /* BPBMainScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBMainScreenViewController.h; path = Origins/BPBMainScreenViewController.h; sourceTree = "<group>"; };
+		F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBMainScreenViewController.m; path = Origins/BPBMainScreenViewController.m; sourceTree = "<group>"; };
+		F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BPBMainScreenViewController.xib; path = Origins/BPBMainScreenViewController.xib; sourceTree = "<group>"; };
+		F48EBE9A190860CC00935701 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F421587F1908A8DE00343326 /* CoreLocation.framework in Frameworks */,
+				F48EBE9B190860CC00935701 /* MapKit.framework in Frameworks */,
 				F48EBE62190851C800935701 /* CoreGraphics.framework in Frameworks */,
 				F48EBE64190851C800935701 /* UIKit.framework in Frameworks */,
 				F48EBE60190851C800935701 /* Foundation.framework in Frameworks */,
@@ -74,9 +94,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F43309BA19095AD100AB4771 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */,
+				F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F43309BB19095AD700AB4771 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F48EBE921908554100935701 /* BPBLoginViewController.xib */,
+				F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F43309BC19095ADD00AB4771 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F48EBE901908554100935701 /* BPBLoginViewController.h */,
+				F48EBE911908554100935701 /* BPBLoginViewController.m */,
+				F48EBE95190859CC00935701 /* BPBMainScreenViewController.h */,
+				F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		F48EBE53190851C800935701 = {
 			isa = PBXGroup;
 			children = (
+				F43309BC19095ADD00AB4771 /* Controller */,
+				F43309BB19095AD700AB4771 /* View */,
+				F43309BA19095AD100AB4771 /* Model */,
 				F48EBE65190851C800935701 /* Origins */,
 				F48EBE7E190851C800935701 /* OriginsTests */,
 				F48EBE5E190851C800935701 /* Frameworks */,
@@ -96,6 +148,8 @@
 		F48EBE5E190851C800935701 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F421587E1908A8DE00343326 /* CoreLocation.framework */,
+				F48EBE9A190860CC00935701 /* MapKit.framework */,
 				F48EBE5F190851C800935701 /* Foundation.framework */,
 				F48EBE61190851C800935701 /* CoreGraphics.framework */,
 				F48EBE63190851C800935701 /* UIKit.framework */,
@@ -118,6 +172,7 @@
 		F48EBE66190851C800935701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F43309B819095A8D00AB4771 /* BPBConstants.h */,
 				F48EBE67190851C800935701 /* Origins-Info.plist */,
 				F48EBE68190851C800935701 /* InfoPlist.strings */,
 				F48EBE6B190851C800935701 /* main.m */,
@@ -220,7 +275,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */,
 				F48EBE6A190851C800935701 /* InfoPlist.strings in Resources */,
+				F48EBE941908554100935701 /* BPBLoginViewController.xib in Resources */,
 				F48EBE72190851C800935701 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,8 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F48EBE98190859CC00935701 /* BPBMainScreenViewController.m in Sources */,
+				F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */,
 				F48EBE6C190851C800935701 /* main.m in Sources */,
 				F48EBE70190851C800935701 /* BPBAppDelegate.m in Sources */,
+				F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +498,7 @@
 				F48EBE8A190851C800935701 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F48EBE8B190851C800935701 /* Build configuration list for PBXNativeTarget "OriginsTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +507,7 @@
 				F48EBE8D190851C800935701 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
