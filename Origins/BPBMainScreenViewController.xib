@@ -7,6 +7,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BPBMainScreenViewController">
             <connections>
                 <outlet property="mapView" destination="bZI-FI-3Y8" id="vQC-1K-K8q"/>
+                <outlet property="snapShotScrollView" destination="llM-z8-M2S" id="Gae-yj-gpz"/>
+                <outlet property="snapShotTitleBarView" destination="Hhj-MT-cW4" id="S5J-Wd-Srj"/>
+                <outlet property="snapShotView" destination="Mou-Lq-mto" id="Rs1-yx-P9d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,13 +18,37 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZI-FI-3Y8">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZI-FI-3Y8">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="pOv-Uk-Wj4"/>
+                        <constraint firstAttribute="height" constant="500" id="tQE-rb-4cF"/>
+                    </constraints>
                     <connections>
                         <outlet property="delegate" destination="-1" id="akR-QY-ryC"/>
                     </connections>
                 </mapView>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mou-Lq-mto">
+                    <rect key="frame" x="0.0" y="500" width="320" height="397"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hhj-MT-cW4">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.59999999999999998" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="68" id="gRZ-ej-3i9"/>
+                                <constraint firstAttribute="width" constant="320" id="sKd-jz-0TV"/>
+                            </constraints>
+                        </view>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llM-z8-M2S">
+                            <rect key="frame" x="40" y="135" width="240" height="128"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

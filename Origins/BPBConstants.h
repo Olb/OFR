@@ -9,10 +9,12 @@
 #ifndef Origins_BPBConstants_h
 #define Origins_BPBConstants_h
 
+#define ONE_MILE 1606.344
+
 typedef NS_ENUM(NSInteger, Impact) {
-    Bad,
-    Good,
-    Unknown,
+    HarmfulImpact,
+    GoodImpact,
+    UnknownImpact,
 };
 
 

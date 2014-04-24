@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F421587F1908A8DE00343326 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421587E1908A8DE00343326 /* CoreLocation.framework */; };
 		F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */; };
+		F43309BF190970E900AB4771 /* BPBAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F43309BE190970E900AB4771 /* BPBAnnotationView.m */; };
 		F48EBE60190851C800935701 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE5F190851C800935701 /* Foundation.framework */; };
 		F48EBE62190851C800935701 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE61190851C800935701 /* CoreGraphics.framework */; };
 		F48EBE64190851C800935701 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE63190851C800935701 /* UIKit.framework */; };
@@ -40,9 +41,11 @@
 
 /* Begin PBXFileReference section */
 		F421587E1908A8DE00343326 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBStoreLocationAnnotation.h; path = Origins/BPBStoreLocationAnnotation.h; sourceTree = "<group>"; };
-		F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBStoreLocationAnnotation.m; path = Origins/BPBStoreLocationAnnotation.m; sourceTree = "<group>"; };
+		F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBStoreLocationAnnotation.h; sourceTree = "<group>"; };
+		F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBStoreLocationAnnotation.m; sourceTree = "<group>"; };
 		F43309B819095A8D00AB4771 /* BPBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPBConstants.h; sourceTree = "<group>"; };
+		F43309BD190970E900AB4771 /* BPBAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBAnnotationView.h; sourceTree = "<group>"; };
+		F43309BE190970E900AB4771 /* BPBAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBAnnotationView.m; sourceTree = "<group>"; };
 		F48EBE5C190851C800935701 /* Origins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Origins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48EBE5F190851C800935701 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F48EBE61190851C800935701 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -97,8 +100,6 @@
 		F43309BA19095AD100AB4771 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */,
-				F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -106,6 +107,8 @@
 		F43309BB19095AD700AB4771 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F43309BD190970E900AB4771 /* BPBAnnotationView.h */,
+				F43309BE190970E900AB4771 /* BPBAnnotationView.m */,
 				F48EBE921908554100935701 /* BPBLoginViewController.xib */,
 				F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */,
 			);
@@ -172,6 +175,8 @@
 		F48EBE66190851C800935701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */,
+				F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */,
 				F43309B819095A8D00AB4771 /* BPBConstants.h */,
 				F48EBE67190851C800935701 /* Origins-Info.plist */,
 				F48EBE68190851C800935701 /* InfoPlist.strings */,
@@ -299,6 +304,7 @@
 			files = (
 				F48EBE98190859CC00935701 /* BPBMainScreenViewController.m in Sources */,
 				F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */,
+				F43309BF190970E900AB4771 /* BPBAnnotationView.m in Sources */,
 				F48EBE6C190851C800935701 /* main.m in Sources */,
 				F48EBE70190851C800935701 /* BPBAppDelegate.m in Sources */,
 				F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */,
