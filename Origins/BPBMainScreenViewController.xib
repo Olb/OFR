@@ -7,7 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BPBMainScreenViewController">
             <connections>
                 <outlet property="mapView" destination="bZI-FI-3Y8" id="vQC-1K-K8q"/>
-                <outlet property="snapShotScrollView" destination="llM-z8-M2S" id="Gae-yj-gpz"/>
+                <outlet property="scannerTouchView" destination="hwc-MT-jLq" id="Ixh-0E-5lY"/>
                 <outlet property="snapShotTitleBarView" destination="Hhj-MT-cW4" id="S5J-Wd-Srj"/>
                 <outlet property="snapShotView" destination="Mou-Lq-mto" id="Rs1-yx-P9d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -18,41 +18,90 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZI-FI-3Y8">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZI-FI-3Y8">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="8D7-HZ-Xsd"/>
                         <constraint firstAttribute="width" constant="320" id="pOv-Uk-Wj4"/>
-                        <constraint firstAttribute="height" constant="500" id="tQE-rb-4cF"/>
+                        <constraint firstAttribute="height" constant="568" id="tQE-rb-4cF"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="500" id="xCK-jL-3O8"/>
                     </constraints>
                     <connections>
                         <outlet property="delegate" destination="-1" id="akR-QY-ryC"/>
                     </connections>
                 </mapView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mou-Lq-mto">
-                    <rect key="frame" x="0.0" y="500" width="320" height="397"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mou-Lq-mto">
+                    <rect key="frame" x="0.0" y="200" width="320" height="397"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hhj-MT-cW4">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hhj-MT-cW4">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.59999999999999998" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="origin_goods_ph.png" translatesAutoresizingMaskIntoConstraints="NO" id="NYv-Ch-CnW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="43" id="1rl-aH-XgE"/>
+                                        <constraint firstAttribute="width" constant="320" id="9ll-nd-Kq6"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="68" id="gRZ-ej-3i9"/>
+                                <constraint firstAttribute="trailing" secondItem="NYv-Ch-CnW" secondAttribute="trailing" id="YGu-us-44g"/>
+                                <constraint firstAttribute="bottom" secondItem="NYv-Ch-CnW" secondAttribute="bottom" id="bJQ-AT-Xle"/>
+                                <constraint firstItem="NYv-Ch-CnW" firstAttribute="leading" secondItem="Hhj-MT-cW4" secondAttribute="leading" id="g7l-NZ-UnS"/>
+                                <constraint firstAttribute="height" constant="43" id="gRZ-ej-3i9"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="gj9-uE-hgk"/>
                                 <constraint firstAttribute="width" constant="320" id="sKd-jz-0TV"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="yH6-DC-x2J"/>
                             </constraints>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llM-z8-M2S">
-                            <rect key="frame" x="40" y="135" width="240" height="128"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        </scrollView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsz-Ft-F7H">
+                            <rect key="frame" x="123" y="316" width="75" height="75"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="origins_ph.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Hhj-MT-cW4" secondAttribute="trailing" id="4jM-2f-Y6V"/>
+                        <constraint firstAttribute="height" constant="397" id="5yB-3Q-ZJa"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="YUC-Yk-XDn"/>
+                        <constraint firstAttribute="width" constant="320" id="atF-Ya-sZm"/>
+                        <constraint firstItem="Hhj-MT-cW4" firstAttribute="leading" secondItem="Mou-Lq-mto" secondAttribute="leading" id="reM-MJ-H96"/>
+                        <constraint firstItem="Hhj-MT-cW4" firstAttribute="top" secondItem="Mou-Lq-mto" secondAttribute="top" id="w8x-Bc-MnH"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hwc-MT-jLq">
+                    <rect key="frame" x="0.0" y="10" width="35" height="558"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="bZI-FI-3Y8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8vH-FG-wPT"/>
+                <constraint firstAttribute="trailing" secondItem="Mou-Lq-mto" secondAttribute="trailing" id="OzG-C1-91U"/>
+                <constraint firstItem="Mou-Lq-mto" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Q8M-MZ-ZpR"/>
+                <constraint firstAttribute="trailing" secondItem="Mou-Lq-mto" secondAttribute="trailing" id="R9C-0e-zkZ"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Mou-Lq-mto" secondAttribute="bottom" constant="-29" id="Tvv-eK-zTO"/>
+                <constraint firstAttribute="bottom" secondItem="bZI-FI-3Y8" secondAttribute="bottom" id="Vvt-Fc-6W2"/>
+                <constraint firstItem="Mou-Lq-mto" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Zgf-GT-Poy"/>
+                <constraint firstItem="bZI-FI-3Y8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="err-s6-EdS"/>
+                <constraint firstAttribute="bottom" secondItem="Mou-Lq-mto" secondAttribute="bottom" constant="-29" id="mTy-4C-bXX"/>
+                <constraint firstAttribute="trailing" secondItem="bZI-FI-3Y8" secondAttribute="trailing" id="z3V-uv-hXm"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="origin_goods_ph.png" width="650" height="83"/>
+        <image name="origins_ph.png" width="198" height="193"/>
+    </resources>
 </document>

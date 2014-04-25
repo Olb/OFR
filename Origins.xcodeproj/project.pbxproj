@@ -10,6 +10,12 @@
 		F421587F1908A8DE00343326 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F421587E1908A8DE00343326 /* CoreLocation.framework */; };
 		F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */; };
 		F43309BF190970E900AB4771 /* BPBAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F43309BE190970E900AB4771 /* BPBAnnotationView.m */; };
+		F46BFA24190AB7A0007D6385 /* origins_ph.png in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA23190AB7A0007D6385 /* origins_ph.png */; };
+		F46BFA26190AB7A5007D6385 /* origin_goods_ph.png in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA25190AB7A5007D6385 /* origin_goods_ph.png */; };
+		F46BFA2A190AD53C007D6385 /* BPBScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFA28190AD53C007D6385 /* BPBScannerViewController.m */; };
+		F46BFA2B190AD53C007D6385 /* BPBScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA29190AD53C007D6385 /* BPBScannerViewController.xib */; };
+		F46BFA2F190AF676007D6385 /* BPBProductStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFA2D190AF676007D6385 /* BPBProductStateViewController.m */; };
+		F46BFA30190AF676007D6385 /* BPBProductStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */; };
 		F48EBE60190851C800935701 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE5F190851C800935701 /* Foundation.framework */; };
 		F48EBE62190851C800935701 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE61190851C800935701 /* CoreGraphics.framework */; };
 		F48EBE64190851C800935701 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE63190851C800935701 /* UIKit.framework */; };
@@ -46,6 +52,14 @@
 		F43309B819095A8D00AB4771 /* BPBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPBConstants.h; sourceTree = "<group>"; };
 		F43309BD190970E900AB4771 /* BPBAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBAnnotationView.h; sourceTree = "<group>"; };
 		F43309BE190970E900AB4771 /* BPBAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBAnnotationView.m; sourceTree = "<group>"; };
+		F46BFA23190AB7A0007D6385 /* origins_ph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = origins_ph.png; sourceTree = "<group>"; };
+		F46BFA25190AB7A5007D6385 /* origin_goods_ph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = origin_goods_ph.png; sourceTree = "<group>"; };
+		F46BFA27190AD53C007D6385 /* BPBScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBScannerViewController.h; sourceTree = "<group>"; };
+		F46BFA28190AD53C007D6385 /* BPBScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBScannerViewController.m; sourceTree = "<group>"; };
+		F46BFA29190AD53C007D6385 /* BPBScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BPBScannerViewController.xib; sourceTree = "<group>"; };
+		F46BFA2C190AF676007D6385 /* BPBProductStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBProductStateViewController.h; sourceTree = "<group>"; };
+		F46BFA2D190AF676007D6385 /* BPBProductStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBProductStateViewController.m; sourceTree = "<group>"; };
+		F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BPBProductStateViewController.xib; sourceTree = "<group>"; };
 		F48EBE5C190851C800935701 /* Origins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Origins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48EBE5F190851C800935701 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F48EBE61190851C800935701 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -109,6 +123,8 @@
 			children = (
 				F43309BD190970E900AB4771 /* BPBAnnotationView.h */,
 				F43309BE190970E900AB4771 /* BPBAnnotationView.m */,
+				F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */,
+				F46BFA29190AD53C007D6385 /* BPBScannerViewController.xib */,
 				F48EBE921908554100935701 /* BPBLoginViewController.xib */,
 				F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */,
 			);
@@ -122,6 +138,10 @@
 				F48EBE911908554100935701 /* BPBLoginViewController.m */,
 				F48EBE95190859CC00935701 /* BPBMainScreenViewController.h */,
 				F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */,
+				F46BFA27190AD53C007D6385 /* BPBScannerViewController.h */,
+				F46BFA28190AD53C007D6385 /* BPBScannerViewController.m */,
+				F46BFA2C190AF676007D6385 /* BPBProductStateViewController.h */,
+				F46BFA2D190AF676007D6385 /* BPBProductStateViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -175,6 +195,8 @@
 		F48EBE66190851C800935701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F46BFA25190AB7A5007D6385 /* origin_goods_ph.png */,
+				F46BFA23190AB7A0007D6385 /* origins_ph.png */,
 				F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */,
 				F43309B41909585B00AB4771 /* BPBStoreLocationAnnotation.m */,
 				F43309B819095A8D00AB4771 /* BPBConstants.h */,
@@ -280,8 +302,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F46BFA26190AB7A5007D6385 /* origin_goods_ph.png in Resources */,
+				F46BFA24190AB7A0007D6385 /* origins_ph.png in Resources */,
 				F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */,
+				F46BFA2B190AD53C007D6385 /* BPBScannerViewController.xib in Resources */,
 				F48EBE6A190851C800935701 /* InfoPlist.strings in Resources */,
+				F46BFA30190AF676007D6385 /* BPBProductStateViewController.xib in Resources */,
 				F48EBE941908554100935701 /* BPBLoginViewController.xib in Resources */,
 				F48EBE72190851C800935701 /* Images.xcassets in Resources */,
 			);
@@ -306,8 +332,10 @@
 				F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */,
 				F43309BF190970E900AB4771 /* BPBAnnotationView.m in Sources */,
 				F48EBE6C190851C800935701 /* main.m in Sources */,
+				F46BFA2A190AD53C007D6385 /* BPBScannerViewController.m in Sources */,
 				F48EBE70190851C800935701 /* BPBAppDelegate.m in Sources */,
 				F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */,
+				F46BFA2F190AF676007D6385 /* BPBProductStateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

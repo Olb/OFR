@@ -9,7 +9,7 @@
 #import "BPBMainScreenViewController.h"
 #import "BPBConstants.h"
 #import "BPBStoreLocationAnnotation.h"
-
+#import "BPBScannerViewController.h"
 
 @interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *snapShotView;
 @property (weak, nonatomic) IBOutlet UIView *snapShotTitleBarView;
 @property (weak, nonatomic) IBOutlet UIScrollView *snapShotScrollView;
+@property (weak, nonatomic) IBOutlet UIView *scannerTouchView;
 
 @end
 
@@ -59,7 +60,18 @@
     swipeDown.numberOfTouchesRequired = 1;
     [self.snapShotTitleBarView addGestureRecognizer:swipeDown];
     
-    // Create a geocoder and save it for later.
+    // Swipe right gesture for scanner view
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(scannerSwipeRight:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.numberOfTouchesRequired = 1;
+    [self.scannerTouchView addGestureRecognizer:swipeRight];
+    
+    [self addStoreLocation:@"Walmart" withImpact:HarmfulImpact];
+    [self addStoreLocation:@"Earth Fare" withImpact:GoodImpact];
+    [self addStoreLocation:@"Benton Oil" withImpact:HarmfulImpact];
+    [self addStoreLocation:@"Spartan Systems" withImpact:GoodImpact];
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,25 +83,7 @@
 #pragma mark - Mapping
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    // Get the user's current location
-    CLLocationCoordinate2D userCoordinate = userLocation.location.coordinate;
     
-    
-    // Test deltas for new coords
-    CGFloat latDelta = rand()*.035/RAND_MAX -.02;
-    CGFloat longDelta = rand()*.03/RAND_MAX -.015;
-    // Add first test point
-    CLLocationCoordinate2D firstTestCoord = { userCoordinate.latitude + latDelta, userCoordinate.longitude + longDelta };
-    BPBStoreLocationAnnotation *storeLocationAnnotation = [[ BPBStoreLocationAnnotation alloc] initWithCoordinate:firstTestCoord title:@"Walmart" subTitle:nil withImpact:HarmfulImpact];
-    [mapView addAnnotation:storeLocationAnnotation];
-    
-    // Test deltas for new coords
-    latDelta = rand()*.035/RAND_MAX -.02;
-    longDelta = rand()*.03/RAND_MAX -.015;
-    // Add second test point
-    CLLocationCoordinate2D secondTestCoord = { userCoordinate.latitude + latDelta, userCoordinate.longitude + longDelta };
-    BPBStoreLocationAnnotation *secondStoreAnnotation = [[BPBStoreLocationAnnotation alloc] initWithCoordinate:secondTestCoord title:@"Earth Fare" subTitle:nil withImpact:GoodImpact];
-    [mapView addAnnotation:secondStoreAnnotation];
     
 }
 
@@ -146,9 +140,9 @@
 
 -(void)snapShotSwipeUp:(UIGestureRecognizer*)g
 {
-    NSLog(@"Swip up");
+    NSLog(@"Swipe up");
     
-    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-300,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
+    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
@@ -162,7 +156,7 @@
 
 -(void)snapShowSwipeDown:(UIGestureRecognizer*)g
 {
-    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+300,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
+    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
@@ -172,6 +166,38 @@
                      completion:^(BOOL finished){
                          // do whatever post processing you want (such as resetting what is "current" and what is "next")
                      }];
+}
+
+-(void)scannerSwipeRight:(UIGestureRecognizer*)g
+{
+    NSLog(@"Swipe right");
+    BPBScannerViewController *svc = [[BPBScannerViewController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:svc];
+    navController.restorationIdentifier = NSStringFromClass([navController class]);
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    navController.navigationBarHidden = YES;
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+-(void)addStoreLocation:(NSString*)storeName withImpact:(NSInteger)impact
+{
+    if ([CLLocationManager locationServicesEnabled]) {
+        CLLocationManager *mgr = [[CLLocationManager alloc] init];
+        mgr.delegate = self;
+        
+        // Get the user's current location
+        CLLocationCoordinate2D userCoordinate = mgr.location.coordinate;
+        
+        
+        // Test deltas for new coords
+        CGFloat latDelta = rand()*.035/RAND_MAX -.02;
+        CGFloat longDelta = rand()*.03/RAND_MAX -.015;
+        // Add first test point
+        CLLocationCoordinate2D firstTestCoord = { userCoordinate.latitude + latDelta, userCoordinate.longitude + longDelta };
+        BPBStoreLocationAnnotation *storeLocationAnnotation = [[ BPBStoreLocationAnnotation alloc] initWithCoordinate:firstTestCoord title:storeName subTitle:nil withImpact:impact];
+        [self.mapView addAnnotation:storeLocationAnnotation];
+    }
 }
 
 @end
