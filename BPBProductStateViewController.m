@@ -7,6 +7,8 @@
 //
 
 #import "BPBProductStateViewController.h"
+#import "BPBMainScreenViewController.h"
+#import "BPBConstants.h"
 
 @interface BPBProductStateViewController () <NSURLSessionDataDelegate>
 
@@ -49,8 +51,9 @@
 
 -(void)fetchFeed
 {
-    // NSString *requestString = @"http://bookapi.bignerdranch.com/courses.json";
+    // First database to check
     NSMutableString *requestString = [[NSMutableString alloc] initWithString:@"http://www.outpan.com/api/get_product.php?barcode="];
+    // Append the passed in barcode
     [requestString appendString:self.barCode];
     
     NSURL *url = [NSURL URLWithString:requestString];
@@ -62,7 +65,7 @@
                                           NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data
                                                                                                      options:0
                                                                                                        error:nil];
-                                          
+                                          // Once done with request set labels and image
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                               self.productBarcodeLabel.text = jsonObject[@"barcode"];
                                               self.productNameLabel.text = jsonObject[@"name"];
@@ -104,7 +107,13 @@
                                                          
 
 - (IBAction)back:(id)sender {
-    [self.presentingViewController dismissViewControllerAnimated:YES
-                                                      completion:self.dismissBlock];
+//    [self.presentingViewController dismissViewControllerAnimated:YES
+//                                                      completion:self.dismissBlock];
+   // [self.navigationController presentViewController:self.mvc animated:YES completion:nil];
+    
+    [self.mvc getStoreNameAndCoordinateForImpact:HarmfulImpact];
+
+    [self.navigationController popToViewController:self.mvc animated:YES];
+    
 }
 @end

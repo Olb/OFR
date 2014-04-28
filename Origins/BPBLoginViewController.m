@@ -43,8 +43,9 @@
 
 #pragma mark - Logging in
 - (IBAction)login:(id)sender {
-    BPBMainScreenViewController *mvc = [[BPBMainScreenViewController alloc] init];
-    [self.navigationController presentViewController:mvc animated:YES completion:nil];
+    BPBMainScreenViewController *mvc = [[BPBMainScreenViewController alloc] initWithNibName:nil bundle:nil];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController pushViewController:mvc animated:YES];
 }
 
 @end

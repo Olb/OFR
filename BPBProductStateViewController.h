@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BPBMainScreenViewController.h"
 
 @interface BPBProductStateViewController : UIViewController
 
 @property (nonatomic) NSString *barCode;
-
-@property (nonatomic, copy) void (^dismissBlock)(void);
+@property (nonatomic, weak) BPBMainScreenViewController *mvc;
 
 @end

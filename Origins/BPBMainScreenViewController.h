@@ -10,5 +10,5 @@
 #import <MapKit/MapKit.h>
 
 @interface BPBMainScreenViewController : UIViewController 
-
+-(void)getStoreNameAndCoordinateForImpact:(NSInteger)impact;
 @end

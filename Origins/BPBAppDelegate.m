@@ -7,7 +7,6 @@
 //
 
 #import "BPBAppDelegate.h"
-#import "BPBLoginViewController.h"
 
 @implementation BPBAppDelegate
 
@@ -16,12 +15,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    BPBLoginViewController *lvc = [[BPBLoginViewController alloc] init];
+    self.rootViewController = [[BPBLoginViewController alloc] init];
     
-    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:lvc];
-    
-    self.window.rootViewController = nv;
-    
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.rootViewController];
+    self.window.rootViewController = self.rootViewController;
+    [self.window addSubview:self.navigationController.view];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

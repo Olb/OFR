@@ -11,15 +11,20 @@
 #import "BPBStoreLocationAnnotation.h"
 #import "BPBScannerViewController.h"
 
-@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+// Google API Key
+#define API_KEY "AIzaSyDlFcGWWUhqrcinZfrUbWPr5zzf80mg-ic"
+
+@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, NSURLSessionDataDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) MKPlacemark *placemark;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (weak, nonatomic) IBOutlet UIView *snapShotView;
 @property (weak, nonatomic) IBOutlet UIView *snapShotTitleBarView;
-@property (weak, nonatomic) IBOutlet UIScrollView *snapShotScrollView;
 @property (weak, nonatomic) IBOutlet UIView *scannerTouchView;
+@property (nonatomic, strong) CLGeocoder *geoCoder;
+@property (nonatomic) NSURLSession *session;
+
 
 @end
 
@@ -41,12 +46,11 @@
     // Location manager fetch's information about the user's location
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
-    
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
+    // show the user loc
     self.mapView.showsUserLocation = YES;
-    
     
     // Swipe up gesture for Snapshot
     UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(snapShotSwipeUp:)];
@@ -66,12 +70,6 @@
     swipeRight.numberOfTouchesRequired = 1;
     [self.scannerTouchView addGestureRecognizer:swipeRight];
     
-    [self addStoreLocation:@"Walmart" withImpact:HarmfulImpact];
-    [self addStoreLocation:@"Earth Fare" withImpact:GoodImpact];
-    [self addStoreLocation:@"Benton Oil" withImpact:HarmfulImpact];
-    [self addStoreLocation:@"Spartan Systems" withImpact:GoodImpact];
-
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,7 +78,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Mapping
+#pragma mark - Mapping and annotations
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     
@@ -89,13 +87,14 @@
 
 -(void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
+    // For user there is one object grab first
     MKAnnotationView *annotaionView = [views objectAtIndex:0];
     id<MKAnnotation> mp = [annotaionView annotation];
     
+    // Set the region to a two mile radius
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance([mp coordinate], ONE_MILE*2, ONE_MILE*2);
     
     [mapView setRegion:region animated:YES];
-    
     
 }
 
@@ -112,7 +111,7 @@
     // Use defined class method to get reusable identifier for the pin about to be created
     NSString *annotationIdentifier = [BPBStoreLocationAnnotation reusableIdentifierForPinColor:senderAnnotation.pinColor];
     
-    // Using retrieved identifier, attempt tp reuse pin in the sender Map View
+    // Using retrieved identifier, attempt to reuse pin in the sender Map View
     MKPinAnnotationView *pinView =  (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
     
     if (!pinView) {
@@ -130,6 +129,60 @@
     
 }
 
+-(void)getStoreNameAndCoordinateForImpact:(NSInteger)impact
+{
+    // Check that location services are enabled by user
+    if ([CLLocationManager locationServicesEnabled]) {
+        CLLocationManager *mgr = [[CLLocationManager alloc] init];
+        mgr.delegate = self;
+        
+        // Get the user's current location
+        CLLocationCoordinate2D userCoordinate = mgr.location.coordinate;
+        
+        // Setup the 'Get' Request
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _session = [NSURLSession sessionWithConfiguration:config
+                                                 delegate:self
+                                            delegateQueue:nil];
+        // First need to grab store info
+        // Setup the request string parameters
+        NSMutableString *builder = [[NSMutableString alloc] initWithString:@"location="];
+        [builder appendString:[NSString stringWithFormat:@"%f", userCoordinate.latitude]];
+        [builder appendString:@","];
+        [builder appendString:[NSString stringWithFormat:@"%f", userCoordinate.longitude]];
+        [builder appendString:@"&key="];
+        [builder appendString:@API_KEY];
+        [builder appendString:@"&sensor=true"];
+        [builder appendString:@"&types=establishment"];
+        [builder appendString:@"&rankby=distance"];
+        // Append the parameters to the request
+        NSMutableString *requestString = [[NSMutableString alloc] initWithString:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?"];
+        [requestString appendString:builder];
+        
+        NSURL *url = [NSURL URLWithString:requestString];
+        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+        
+        NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:req
+                                                         completionHandler:
+                                          ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                              NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                         options:0
+                                                                                                           error:nil];
+                                              
+                                              // Once done with request call addStoreLocation:withImpact:withCoordinate to set pin
+                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                  // Get the first result
+                                                  __weak NSString *storeName = [[jsonObject[@"results"] objectAtIndex:0] valueForKey:@"name"];
+                                                  [self addStoreLocation:storeName
+                                                              withImpact:impact
+                                                          withCoordinate:userCoordinate];
+                                                  
+                                              });
+                                          }];
+        [dataTask resume];
+    }
+}
+
 - (NSUInteger)supportedInterfaceOrientations
 {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -138,10 +191,10 @@
         return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
+#pragma mark - Swiping
 -(void)snapShotSwipeUp:(UIGestureRecognizer*)g
 {
-    NSLog(@"Swipe up");
-    
+    // Swipe up pulls up origins snapshots
     CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
@@ -156,6 +209,7 @@
 
 -(void)snapShowSwipeDown:(UIGestureRecognizer*)g
 {
+    // Swipe down lowers snapshots
     CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
@@ -170,34 +224,19 @@
 
 -(void)scannerSwipeRight:(UIGestureRecognizer*)g
 {
-    NSLog(@"Swipe right");
+    // Swipe right in from left side launches scanner
     BPBScannerViewController *svc = [[BPBScannerViewController alloc] init];
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:svc];
-    navController.restorationIdentifier = NSStringFromClass([navController class]);
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    navController.navigationBarHidden = YES;
-    [self presentViewController:navController animated:YES completion:nil];
+    // Reference to self to pop
+    svc.mvc = self;
+    [self.navigationController pushViewController:svc animated:YES];
 }
 
--(void)addStoreLocation:(NSString*)storeName withImpact:(NSInteger)impact
+#pragma mark - Add pins
+-(void)addStoreLocation:(NSString*)storeName withImpact:(NSInteger)impact withCoordinate:(CLLocationCoordinate2D)userCoordinate
 {
-    if ([CLLocationManager locationServicesEnabled]) {
-        CLLocationManager *mgr = [[CLLocationManager alloc] init];
-        mgr.delegate = self;
-        
-        // Get the user's current location
-        CLLocationCoordinate2D userCoordinate = mgr.location.coordinate;
-        
-        
-        // Test deltas for new coords
-        CGFloat latDelta = rand()*.035/RAND_MAX -.02;
-        CGFloat longDelta = rand()*.03/RAND_MAX -.015;
-        // Add first test point
-        CLLocationCoordinate2D firstTestCoord = { userCoordinate.latitude + latDelta, userCoordinate.longitude + longDelta };
-        BPBStoreLocationAnnotation *storeLocationAnnotation = [[ BPBStoreLocationAnnotation alloc] initWithCoordinate:firstTestCoord title:storeName subTitle:nil withImpact:impact];
-        [self.mapView addAnnotation:storeLocationAnnotation];
-    }
+    // Add the custom annotation
+    BPBStoreLocationAnnotation *storeLocationAnnotation = [[ BPBStoreLocationAnnotation alloc] initWithCoordinate:userCoordinate title:storeName subTitle:nil withImpact:impact];
+    [self.mapView addAnnotation:storeLocationAnnotation];
 }
 
 @end

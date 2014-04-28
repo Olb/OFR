@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BPBLoginViewController.h"
 
 @interface BPBAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) UINavigationController *navigationController;
+@property (nonatomic, strong) BPBLoginViewController *rootViewController;
 
 @end

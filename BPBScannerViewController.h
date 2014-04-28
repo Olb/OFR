@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BPBMainScreenViewController.h"
 
 @interface BPBScannerViewController : UIViewController
+
+@property (nonatomic, weak) BPBMainScreenViewController *mvc;
 
 @end
