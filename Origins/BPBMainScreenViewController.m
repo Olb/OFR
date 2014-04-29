@@ -10,11 +10,11 @@
 #import "BPBConstants.h"
 #import "BPBStoreLocationAnnotation.h"
 #import "BPBScannerViewController.h"
+#import <MapKit/MapKit.h>
+#import "BPBDataFetch.h"
 
-// Google API Key
-#define API_KEY "AIzaSyDlFcGWWUhqrcinZfrUbWPr5zzf80mg-ic"
 
-@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, NSURLSessionDataDelegate>
+@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) MKPlacemark *placemark;
@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UIView *snapShotView;
 @property (weak, nonatomic) IBOutlet UIView *snapShotTitleBarView;
 @property (weak, nonatomic) IBOutlet UIView *scannerTouchView;
-@property (nonatomic, strong) CLGeocoder *geoCoder;
 @property (nonatomic) NSURLSession *session;
 
 
@@ -129,59 +128,7 @@
     
 }
 
--(void)getStoreNameAndCoordinateForImpact:(NSInteger)impact
-{
-    // Check that location services are enabled by user
-    if ([CLLocationManager locationServicesEnabled]) {
-        CLLocationManager *mgr = [[CLLocationManager alloc] init];
-        mgr.delegate = self;
-        
-        // Get the user's current location
-        CLLocationCoordinate2D userCoordinate = mgr.location.coordinate;
-        
-        // Setup the 'Get' Request
-        NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _session = [NSURLSession sessionWithConfiguration:config
-                                                 delegate:self
-                                            delegateQueue:nil];
-        // First need to grab store info
-        // Setup the request string parameters
-        NSMutableString *builder = [[NSMutableString alloc] initWithString:@"location="];
-        [builder appendString:[NSString stringWithFormat:@"%f", userCoordinate.latitude]];
-        [builder appendString:@","];
-        [builder appendString:[NSString stringWithFormat:@"%f", userCoordinate.longitude]];
-        [builder appendString:@"&key="];
-        [builder appendString:@API_KEY];
-        [builder appendString:@"&sensor=true"];
-        [builder appendString:@"&types=establishment"];
-        [builder appendString:@"&rankby=distance"];
-        // Append the parameters to the request
-        NSMutableString *requestString = [[NSMutableString alloc] initWithString:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?"];
-        [requestString appendString:builder];
-        
-        NSURL *url = [NSURL URLWithString:requestString];
-        NSURLRequest *req = [NSURLRequest requestWithURL:url];
-        
-        NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:req
-                                                         completionHandler:
-                                          ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                              NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                         options:0
-                                                                                                           error:nil];
-                                              
-                                              // Once done with request call addStoreLocation:withImpact:withCoordinate to set pin
-                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                  // Get the first result
-                                                  __weak NSString *storeName = [[jsonObject[@"results"] objectAtIndex:0] valueForKey:@"name"];
-                                                  [self addStoreLocation:storeName
-                                                              withImpact:impact
-                                                          withCoordinate:userCoordinate];
-                                                  
-                                              });
-                                          }];
-        [dataTask resume];
-    }
-}
+
 
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -228,6 +175,7 @@
     BPBScannerViewController *svc = [[BPBScannerViewController alloc] init];
     // Reference to self to pop
     svc.mvc = self;
+    
     [self.navigationController pushViewController:svc animated:YES];
 }
 

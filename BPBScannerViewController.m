@@ -9,13 +9,15 @@
 #import "BPBScannerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "BPBProductStateViewController.h"
+#import "BPBDataFetch.h"
 
-@interface BPBScannerViewController () <AVCaptureMetadataOutputObjectsDelegate>
+@interface BPBScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, BPBDataFetchDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *directionsLabelView;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIView *backgroundCameraView;
-
+@property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
+@property (strong, nonatomic) NSString *storeName;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureDevice *device;
 @property (nonatomic, strong) AVCaptureDeviceInput *input;
@@ -46,6 +48,33 @@
     swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
     [self.backgroundCameraView addGestureRecognizer:swipeRight];
     
+    // Setup delegate as self for getting store name
+    BPBDataFetch *df = [[BPBDataFetch alloc] init];
+    df.delegate = self;
+    // Get store name - will set Store label when complete
+    [df getStoreName];
+    
+    // Edge on directions label view
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path,NULL,0.0,0.0);
+    CGPathAddLineToPoint(path, NULL, self.directionsLabelView.bounds.size.width/2-10, 0.0f);
+    CGPathAddLineToPoint(path, NULL, self.directionsLabelView.bounds.size.width/2, -10.0f);
+    CGPathAddLineToPoint(path, NULL, self.directionsLabelView.bounds.size.width/2+10, 0.0f);
+    CGPathAddLineToPoint(path, NULL, self.directionsLabelView.bounds.size.width/2-10, 0.0f);
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    [shapeLayer setPath:path];
+    [shapeLayer setFillColor:[[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor]];
+   // [shapeLayer setFillColor:[[UIColor whiteColor] CGColor]];
+
+    //[shapeLayer setStrokeColor:[[UIColor blackColor] CGColor]];
+   // [shapeLayer setBounds:CGRectMake(160.0f, 0.0f, 20.0f, 10)];
+    [shapeLayer setAnchorPoint:CGPointMake(0.0f, 0.0f)];
+    [shapeLayer setPosition:CGPointMake(0.0f, 0.0f)];
+    [[self.directionsLabelView layer] addSublayer:shapeLayer];
+    
+    CGPathRelease(path);
+    
     // Get a session for scanner
     _session = [[AVCaptureSession alloc] init];
     // Set device for video
@@ -68,7 +97,7 @@
     _output.metadataObjectTypes = [_output availableMetadataObjectTypes];
     // Set the layer for the scanner
     _prevLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    _prevLayer.frame = self.backgroundCameraView.frame;
+    _prevLayer.frame = self.backgroundCameraView.bounds;
     // Preserve aspect ration and fill layers bounds
     _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.backgroundCameraView.layer addSublayer:_prevLayer];
@@ -112,7 +141,7 @@
             psvc.barCode = detectionString;
             // Reference to self for pop
             psvc.mvc = self.mvc;
-            
+            psvc.storeName = self.storeNameLabel.text;
             [self.navigationController pushViewController:psvc animated:YES];
             
             break;
@@ -131,6 +160,11 @@
 {
     [self.navigationController popToViewController:self.mvc animated:YES];
 
+}
+
+- (void)setStoreName:(NSString*)storeName
+{
+    self.storeNameLabel.text = storeName;
 }
 
 @end

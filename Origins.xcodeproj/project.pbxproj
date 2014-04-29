@@ -33,6 +33,7 @@
 		F48EBE98190859CC00935701 /* BPBMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */; };
 		F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */; };
 		F48EBE9B190860CC00935701 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE9A190860CC00935701 /* MapKit.framework */; };
+		F496983719100976000BD8C3 /* BPBDataFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = F496983619100976000BD8C3 /* BPBDataFetch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBMainScreenViewController.m; path = Origins/BPBMainScreenViewController.m; sourceTree = "<group>"; };
 		F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BPBMainScreenViewController.xib; path = Origins/BPBMainScreenViewController.xib; sourceTree = "<group>"; };
 		F48EBE9A190860CC00935701 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F496983519100976000BD8C3 /* BPBDataFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBDataFetch.h; sourceTree = "<group>"; };
+		F496983619100976000BD8C3 /* BPBDataFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBDataFetch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,8 @@
 				F48EBE911908554100935701 /* BPBLoginViewController.m */,
 				F48EBE95190859CC00935701 /* BPBMainScreenViewController.h */,
 				F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */,
+				F496983519100976000BD8C3 /* BPBDataFetch.h */,
+				F496983619100976000BD8C3 /* BPBDataFetch.m */,
 				F46BFA27190AD53C007D6385 /* BPBScannerViewController.h */,
 				F46BFA28190AD53C007D6385 /* BPBScannerViewController.m */,
 				F46BFA2C190AF676007D6385 /* BPBProductStateViewController.h */,
@@ -335,6 +340,7 @@
 				F46BFA2A190AD53C007D6385 /* BPBScannerViewController.m in Sources */,
 				F48EBE70190851C800935701 /* BPBAppDelegate.m in Sources */,
 				F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */,
+				F496983719100976000BD8C3 /* BPBDataFetch.m in Sources */,
 				F46BFA2F190AF676007D6385 /* BPBProductStateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

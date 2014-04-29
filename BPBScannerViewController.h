@@ -12,5 +12,4 @@
 @interface BPBScannerViewController : UIViewController
 
 @property (nonatomic, weak) BPBMainScreenViewController *mvc;
-
 @end

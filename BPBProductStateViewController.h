@@ -10,7 +10,9 @@
 #import "BPBMainScreenViewController.h"
 
 @interface BPBProductStateViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *originsVerifiedView;
 
+@property (nonatomic, strong) NSString *storeName;
 @property (nonatomic) NSString *barCode;
 @property (nonatomic, weak) BPBMainScreenViewController *mvc;
 

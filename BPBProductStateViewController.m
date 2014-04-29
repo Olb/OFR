@@ -14,10 +14,10 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *productBarcodeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
+
 @property (nonatomic) NSURLSession *session;
 @property (nonatomic, copy) NSArray *barcode;
-- (IBAction)back:(id)sender;
 
 @end
 
@@ -35,6 +35,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Edge on directions label view
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path,NULL,0.0,0.0);
+    CGPathAddLineToPoint(path, NULL, self.originsVerifiedView.bounds.size.width/2-10, 0.0f);
+    CGPathAddLineToPoint(path, NULL, self.originsVerifiedView.bounds.size.width/2, -10.0f);
+    CGPathAddLineToPoint(path, NULL, self.originsVerifiedView.bounds.size.width/2+10, 0.0f);
+    CGPathAddLineToPoint(path, NULL, self.originsVerifiedView.bounds.size.width/2-10, 0.0f);
+    
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    [shapeLayer setPath:path];
+    [shapeLayer setFillColor:[[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor]];
+    [shapeLayer setAnchorPoint:CGPointMake(0.0f, 0.0f)];
+    [shapeLayer setPosition:CGPointMake(0.0f, 0.0f)];
+    [[self.originsVerifiedView layer] addSublayer:shapeLayer];
+    
+    self.storeNameLabel.text = self.storeName;
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     _session = [NSURLSession sessionWithConfiguration:config
@@ -67,14 +84,13 @@
                                                                                                        error:nil];
                                           // Once done with request set labels and image
                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                              self.productBarcodeLabel.text = jsonObject[@"barcode"];
+                                            
                                               self.productNameLabel.text = jsonObject[@"name"];
                                               NSString *urlAddress = [jsonObject[@"images"] objectAtIndex:0];
                                               NSString *fixedAddress = [urlAddress stringByReplacingOccurrencesOfString:@"\\" withString:@""];
                                               [self.productImageView setImage:[UIImage imageWithData:
                                                                              [NSData dataWithContentsOfURL:
                                                                               [NSURL URLWithString: fixedAddress]]]];
-                                              NSLog(@"%@", fixedAddress);
                                               [self.view setNeedsDisplay];
                                               
                                               
@@ -111,7 +127,7 @@
 //                                                      completion:self.dismissBlock];
    // [self.navigationController presentViewController:self.mvc animated:YES completion:nil];
     
-    [self.mvc getStoreNameAndCoordinateForImpact:HarmfulImpact];
+    //[self.mvc getStoreNameAndCoordinateForImpact:HarmfulImpact];
 
     [self.navigationController popToViewController:self.mvc animated:YES];
     
