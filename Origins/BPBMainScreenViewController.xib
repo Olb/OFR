@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BPBMainScreenViewController">
             <connections>
+                <outlet property="imageCollectionView" destination="EoO-F1-7QK" id="FHR-iX-esN"/>
                 <outlet property="mapView" destination="bZI-FI-3Y8" id="vQC-1K-K8q"/>
                 <outlet property="scannerTouchView" destination="hwc-MT-jLq" id="Ixh-0E-5lY"/>
                 <outlet property="snapShotTitleBarView" destination="Hhj-MT-cW4" id="S5J-Wd-Srj"/>
@@ -65,15 +66,20 @@
                             </constraints>
                         </view>
                         <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="EoO-F1-7QK">
-                            <rect key="frame" x="20" y="51" width="280" height="317"/>
+                            <rect key="frame" x="0.0" y="51" width="320" height="317"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="faX-Zf-8nw">
-                                <size key="itemSize" width="50" height="50"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="faX-Zf-8nw">
+                                <size key="itemSize" width="120" height="120"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                             <cells/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="inV-td-Hsd"/>
+                                <outlet property="delegate" destination="-1" id="Sfk-Kb-2sQ"/>
+                            </connections>
                         </collectionView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsz-Ft-F7H">
                             <rect key="frame" x="123" y="316" width="75" height="75"/>

@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 
 // Google API Key
-#define API_KEY "AIzaSyDlFcGWWUhqrcinZfrUbWPr5zzf80mg-ic"
+#define kGoogleAPIKey "AIzaSyDlFcGWWUhqrcinZfrUbWPr5zzf80mg-ic"
 
 @interface BPBDataFetch () <CLLocationManagerDelegate,NSURLSessionDataDelegate>
 
@@ -20,6 +20,18 @@
 @end
 
 @implementation BPBDataFetch
+
++(instancetype)sharedFetcher
+{
+    static BPBDataFetch *sharedStore = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedStore = [[self alloc] init];
+    });
+    
+    return sharedStore;
+}
 
 -(void)getStoreName
 {
@@ -43,7 +55,7 @@
         [builder appendString:@","];
         [builder appendString:[NSString stringWithFormat:@"%f", userCoordinate.longitude]];
         [builder appendString:@"&key="];
-        [builder appendString:@API_KEY];
+        [builder appendString:@kGoogleAPIKey];
         [builder appendString:@"&sensor=true"];
         [builder appendString:@"&types=establishment"];
         [builder appendString:@"&rankby=distance"];

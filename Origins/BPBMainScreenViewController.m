@@ -12,9 +12,10 @@
 #import "BPBScannerViewController.h"
 #import <MapKit/MapKit.h>
 #import "BPBDataFetch.h"
+#import "BPBOriginsPhotoCell.h"
+#import "BPBProduct.h"
 
-
-@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) MKPlacemark *placemark;
@@ -23,7 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIView *snapShotTitleBarView;
 @property (weak, nonatomic) IBOutlet UIView *scannerTouchView;
 @property (nonatomic) NSURLSession *session;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
+@property (nonatomic, copy) NSArray *testArray;
 
 @end
 
@@ -69,6 +71,33 @@
     swipeRight.numberOfTouchesRequired = 1;
     [self.scannerTouchView addGestureRecognizer:swipeRight];
     
+    // Collection view
+    UINib *cellNib = [UINib nibWithNibName:@"PhotoCell" bundle:nil];
+    [self.imageCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"PhotoCell"];
+    
+    // Setup some test products
+    BPBProduct *one = [[BPBProduct alloc] init];
+    one.productName = @"Wooden Stand";
+    one.productImage = [UIImage imageNamed:@"wood.png"];
+    
+    BPBProduct *two = [[BPBProduct alloc] init];
+    two.productName = @"Handcrafted Chair";
+    two.productImage = [UIImage imageNamed:@"chair.png"];
+    
+    BPBProduct *three = [[BPBProduct alloc] init];
+    three.productName = @"Custom Cups";
+    three.productImage = [UIImage imageNamed:@"cups.png"];
+    
+    BPBProduct *four = [[BPBProduct alloc] init];
+    four.productName = @"Handmade Office Tools";
+    four.productImage = [UIImage imageNamed:@"office_tools.png"];
+    
+    BPBProduct *five = [[BPBProduct alloc] init];
+    five.productName = @"Wallet";
+    five.productImage = [UIImage imageNamed:@"wallet.png"];
+    
+    // Test array to hold products
+    self.testArray = @[one, two, three, four, five];
 }
 
 - (void)didReceiveMemoryWarning
@@ -187,4 +216,50 @@
     [self.mapView addAnnotation:storeLocationAnnotation];
 }
 
+#pragma mark - UICollectionView Datasource
+// 1
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+   // NSString *searchTerm = nil;
+    return self.testArray.count;
+}
+// 2
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+// 3
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    BPBOriginsPhotoCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.productName.text = ((BPBProduct*)[self.testArray objectAtIndex:indexPath.row]).productName;
+    cell.imageView.image = ((BPBProduct*)[self.testArray objectAtIndex:indexPath.row]).productImage;
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // TODO: Select Item
+}
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    // TODO: Deselect item
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+// 1
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+////    NSString *searchTerm = self.searches[indexPath.section];
+////    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
+////    // 2
+////    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
+////    retval.height += 35;
+////    retval.width += 35;
+//    return CGSizeMake(20, 20);
+//}
+
+// 3
+- (UIEdgeInsets)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(10, 30, 10, 30);
+}
 @end

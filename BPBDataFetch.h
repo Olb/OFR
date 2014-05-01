@@ -15,6 +15,8 @@
 @interface BPBDataFetch : NSObject
 
 @property (nonatomic, weak) id <BPBDataFetchDelegate> delegate;
+
++(instancetype)sharedFetcher;
 -(void)getStoreName;
 
 @end

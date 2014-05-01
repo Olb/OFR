@@ -49,7 +49,7 @@
     [self.backgroundCameraView addGestureRecognizer:swipeRight];
     
     // Setup delegate as self for getting store name
-    BPBDataFetch *df = [[BPBDataFetch alloc] init];
+    BPBDataFetch *df = [BPBDataFetch sharedFetcher];
     df.delegate = self;
     // Get store name - will set Store label when complete
     [df getStoreName];
@@ -65,10 +65,6 @@
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
     [shapeLayer setPath:path];
     [shapeLayer setFillColor:[[UIColor colorWithWhite:1.0f alpha:1.0f] CGColor]];
-   // [shapeLayer setFillColor:[[UIColor whiteColor] CGColor]];
-
-    //[shapeLayer setStrokeColor:[[UIColor blackColor] CGColor]];
-   // [shapeLayer setBounds:CGRectMake(160.0f, 0.0f, 20.0f, 10)];
     [shapeLayer setAnchorPoint:CGPointMake(0.0f, 0.0f)];
     [shapeLayer setPosition:CGPointMake(0.0f, 0.0f)];
     [[self.directionsLabelView layer] addSublayer:shapeLayer];
