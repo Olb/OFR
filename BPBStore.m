@@ -10,4 +10,15 @@
 
 @implementation BPBStore
 
+-(void)makeStore:(NSString*)store withImpact:(NSInteger)impact andProduct:(NSString*)productBarcode andLocation:(CLLocationCoordinate2D)coord
+{
+    self.storeName = store;
+    self.impact = impact;
+    if (!self.productBarcodes) {
+        self.productBarcodes = [[NSMutableArray alloc] init];
+    }
+    [self.productBarcodes addObject:productBarcode];
+    self.storeLocation = coord;
+}
+
 @end

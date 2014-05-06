@@ -10,6 +10,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BPBProductStateViewController.h"
 #import "BPBDataFetch.h"
+#import "BPBConstants.h"
+#import <MapKit/MapKit.h>
+
+#define HARMFUL_TEST_BARCODE 9780321942050
+#define GOOD_TEST_BARCODE 9781449342753
+#define UNKNOWN_TEST_BARCODE 9780321942050
 
 @interface BPBScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, BPBDataFetchDelegate>
 
@@ -23,6 +29,8 @@
 @property (nonatomic, strong) AVCaptureDeviceInput *input;
 @property (nonatomic, strong) AVCaptureMetadataOutput *output;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *prevLayer;
+@property (nonatomic, copy) NSString *detectionString;
+@property (nonatomic) CLLocationCoordinate2D storeLocation;
 
 @end
 
@@ -112,7 +120,7 @@
 {
     CGRect highlightViewRect = CGRectZero;
     AVMetadataMachineReadableCodeObject *barCodeObject;
-    NSString *detectionString = nil;
+    self.detectionString = nil;
     // Check for multiple barcode types
     NSArray *barCodeTypes = @[AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode39Mod43Code,
                               AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeCode128Code,
@@ -124,21 +132,17 @@
             {
                 barCodeObject = (AVMetadataMachineReadableCodeObject *)[_prevLayer transformedMetadataObjectForMetadataObject:(AVMetadataMachineReadableCodeObject *)metadata];
                 highlightViewRect = barCodeObject.bounds;
-                detectionString = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
+                self.detectionString = [(AVMetadataMachineReadableCodeObject *)metadata stringValue];
                 break;
             }
         }
         
-        if (detectionString != nil)
+        if (self.detectionString != nil)
         {
             // Found a bar code, stop the session and launch Product State Controller
             [self.session stopRunning];
-            BPBProductStateViewController *psvc = [[BPBProductStateViewController alloc] init];
-            psvc.barCode = detectionString;
-            // Reference to self for pop
-            psvc.mvc = self.mvc;
-            psvc.storeName = self.storeNameLabel.text;
-            [self.navigationController pushViewController:psvc animated:YES];
+            BPBDataFetch *df = [BPBDataFetch sharedFetcher];
+            [df fetchProductInfo:self.detectionString];
             
             break;
         }
@@ -158,9 +162,63 @@
 
 }
 
+#pragma mark - BPBDataFetch Delegate methods
+// Delegate method to set store name;
 - (void)setStoreName:(NSString*)storeName
 {
     self.storeNameLabel.text = storeName;
+}
+
+-(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescirption:(NSString*)description
+{
+    BPBProductStateViewController *psvc;
+    if ([self.detectionString integerValue] == HARMFUL_TEST_BARCODE) {
+        psvc = [[BPBProductStateViewController alloc] initWithNibName:@"BPBHarmfulProduct" bundle:nil];
+    } else if ([self.detectionString integerValue] == GOOD_TEST_BARCODE) {
+        psvc = [[BPBProductStateViewController alloc] init];
+    }
+    
+    // Reference to self for pop
+    psvc.mvc = self.mvc;
+    psvc.storeName = self.storeNameLabel.text;
+    psvc.productImage = image;
+    psvc.productDescription = description;
+    psvc.impact = impact;
+    psvc.productName = name;
+    psvc.productBarcode = self.detectionString;
+    psvc.storeLocation = self.storeLocation;
+    if ([self.detectionString integerValue] == GOOD_TEST_BARCODE) {
+        psvc.impact = GoodImpact;
+    } else if ([self.detectionString integerValue] == HARMFUL_TEST_BARCODE) {
+        psvc.impact = HarmfulImpact;
+    } else if ([self.detectionString integerValue] == UNKNOWN_TEST_BARCODE){
+        
+    }
+    
+    [self.navigationController pushViewController:psvc animated:YES];
+
+}
+
+-(void)setStoreLocation:(CLLocationCoordinate2D)coord
+{
+    self.storeLocation = coord;
+}
+
+- (IBAction)addBadProduct:(id)sender
+{
+    self.storeNameLabel.text = @"Home Depot";
+    self.detectionString = @"9780321942050";
+    [self setProductImpact:HarmfulImpact withName:@"Office Tools" withImage:[UIImage imageNamed:@"office_tools.png"] withDescirption:@"These tools are known to be harmful to the environment"];
+}
+
+- (IBAction)addGoodProduct:(id)sender
+{
+    self.storeNameLabel.text = @"Joe's Mill";
+    self.detectionString = @"9781449342753";
+    [self setProductImpact:GoodImpact
+                  withName:@"Handcrafted Chair"
+                 withImage:[UIImage imageNamed:@"chair.png"]
+           withDescirption:@"This chair has been manufactured in a manner known to be friendly towards the environment"];
 }
 
 @end

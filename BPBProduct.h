@@ -17,4 +17,7 @@
 @property (nonatomic) NSInteger impact;
 @property (nonatomic, copy) NSString *productDescription;
 
+
+-(void)newProduct:(NSString*)product withBarcode:(NSString*)barcode andImage:(UIImage*)image withImpact:(NSInteger)impact withDescription:(NSString*)desc;
+
 @end

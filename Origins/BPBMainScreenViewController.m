@@ -14,6 +14,7 @@
 #import "BPBDataFetch.h"
 #import "BPBOriginsPhotoCell.h"
 #import "BPBProduct.h"
+#import "BPBStore.h"
 
 @interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -25,7 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIView *scannerTouchView;
 @property (nonatomic) NSURLSession *session;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
-@property (nonatomic, copy) NSArray *testArray;
+@property (nonatomic) NSMutableArray *productCollectionDisplayArray;
+@property (nonatomic) NSMutableArray *stores;
+@property (nonatomic) NSMutableArray *products;
 
 @end
 
@@ -43,7 +46,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     // Location manager fetch's information about the user's location
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -75,29 +77,65 @@
     UINib *cellNib = [UINib nibWithNibName:@"PhotoCell" bundle:nil];
     [self.imageCollectionView registerNib:cellNib forCellWithReuseIdentifier:@"PhotoCell"];
     
-    // Setup some test products
-    BPBProduct *one = [[BPBProduct alloc] init];
-    one.productName = @"Wooden Stand";
-    one.productImage = [UIImage imageNamed:@"wood.png"];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if (!self.productCollectionDisplayArray) {
+        self.productCollectionDisplayArray = [[NSMutableArray alloc] init];
+    }
+    [self.productCollectionDisplayArray removeAllObjects];
+    // Add known products
+    if (self.products.count > 0) {
+        for (BPBProduct *p in self.products) {
+            if (p.impact == GoodImpact) {
+                [self.productCollectionDisplayArray addObject:p];
+            }
+        }
+        for (BPBProduct *x in self.productCollectionDisplayArray) {
+            NSLog(@"Product Name: %@", x.productName);
+        }
+    } else {
+        // No known products?(productCollectionArray empty)
+        // Setup some test products
+        BPBProduct *one = [[BPBProduct alloc] init];
+        one.productName = @"Wooden Stand";
+        one.productImage = [UIImage imageNamed:@"wood.png"];
+        
+        BPBProduct *two = [[BPBProduct alloc] init];
+        two.productName = @"Handcrafted Chair";
+        two.productImage = [UIImage imageNamed:@"chair.png"];
+        
+        BPBProduct *three = [[BPBProduct alloc] init];
+        three.productName = @"Custom Cups";
+        three.productImage = [UIImage imageNamed:@"cups.png"];
+        
+        BPBProduct *four = [[BPBProduct alloc] init];
+        four.productName = @"Handmade Office Tools";
+        four.productImage = [UIImage imageNamed:@"office_tools.png"];
+        
+        BPBProduct *five = [[BPBProduct alloc] init];
+        five.productName = @"Wallet";
+        five.productImage = [UIImage imageNamed:@"wallet.png"];
+        
+        // Array to hold products showing some test products if none yet added
+        // Need to pull from server so this shouldn't happen
+        [self.productCollectionDisplayArray addObject:one];
+        [self.productCollectionDisplayArray addObject:two];
+        [self.productCollectionDisplayArray addObject:three];
+        [self.productCollectionDisplayArray addObject:four];
+        [self.productCollectionDisplayArray addObject:five];
+        
+    }
     
-    BPBProduct *two = [[BPBProduct alloc] init];
-    two.productName = @"Handcrafted Chair";
-    two.productImage = [UIImage imageNamed:@"chair.png"];
-    
-    BPBProduct *three = [[BPBProduct alloc] init];
-    three.productName = @"Custom Cups";
-    three.productImage = [UIImage imageNamed:@"cups.png"];
-    
-    BPBProduct *four = [[BPBProduct alloc] init];
-    four.productName = @"Handmade Office Tools";
-    four.productImage = [UIImage imageNamed:@"office_tools.png"];
-    
-    BPBProduct *five = [[BPBProduct alloc] init];
-    five.productName = @"Wallet";
-    five.productImage = [UIImage imageNamed:@"wallet.png"];
-    
-    // Test array to hold products
-    self.testArray = @[one, two, three, four, five];
+    for (BPBStore *s in self.stores) {
+        [self addStoreAnnotation:s.storeName withImpact:s.impact withCoordinate:s.storeLocation];
+    }
+    for (BPBStore *s in self.stores) {
+        NSLog(@"Store Name: %@", s.storeName);
+    }
+    [self.imageCollectionView reloadData];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -209,7 +247,7 @@
 }
 
 #pragma mark - Add pins
--(void)addStoreLocation:(NSString*)storeName withImpact:(NSInteger)impact withCoordinate:(CLLocationCoordinate2D)userCoordinate
+-(void)addStoreAnnotation:(NSString*)storeName withImpact:(NSInteger)impact withCoordinate:(CLLocationCoordinate2D)userCoordinate
 {
     // Add the custom annotation
     BPBStoreLocationAnnotation *storeLocationAnnotation = [[ BPBStoreLocationAnnotation alloc] initWithCoordinate:userCoordinate title:storeName subTitle:nil withImpact:impact];
@@ -220,7 +258,7 @@
 // 1
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
    // NSString *searchTerm = nil;
-    return self.testArray.count;
+    return self.productCollectionDisplayArray.count;
 }
 // 2
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
@@ -230,8 +268,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BPBOriginsPhotoCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    cell.productName.text = ((BPBProduct*)[self.testArray objectAtIndex:indexPath.row]).productName;
-    cell.imageView.image = ((BPBProduct*)[self.testArray objectAtIndex:indexPath.row]).productImage;
+    cell.productName.text = ((BPBProduct*)[self.productCollectionDisplayArray objectAtIndex:indexPath.row]).productName;
+    cell.imageView.image = ((BPBProduct*)[self.productCollectionDisplayArray objectAtIndex:indexPath.row]).productImage;
     return cell;
 }
 
@@ -245,21 +283,45 @@
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout
-
-// 1
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-////    NSString *searchTerm = self.searches[indexPath.section];
-////    FlickrPhoto *photo = self.searchResults[searchTerm][indexPath.row];
-////    // 2
-////    CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
-////    retval.height += 35;
-////    retval.width += 35;
-//    return CGSizeMake(20, 20);
-//}
-
-// 3
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(10, 30, 10, 30);
+}
+
+#pragma mark - Add Store with Product
+-(void)addStore:(NSString*)store withImpact:(NSInteger)impact andProduct:(NSString*)productBarcode andLocation:(CLLocationCoordinate2D)coord
+{
+    if (!self.stores) {
+        self.stores = [[NSMutableArray alloc] init];
+    }
+    for (BPBStore *s in self.stores) {
+        if ([s.storeName isEqualToString:store]) {
+            [s.productBarcodes addObject:productBarcode];
+            return;
+        }
+    }
+    
+    BPBStore *newStore = [[BPBStore alloc] init];
+    // coord is zero while using test buttons
+    coord = self.locationManager.location.coordinate;
+    [newStore makeStore:store withImpact:impact andProduct:productBarcode andLocation:coord];
+    [self.stores addObject:newStore];
+}
+
+-(void)addProduct:(NSString*)product withImpact:(NSInteger)impact andProductBarCode:(NSString*)productBarcode andImage:(UIImage*)image withDescription:(NSString*)description
+{
+    if (!self.products) {
+        self.products = [[NSMutableArray alloc] init];
+    }
+    // Check if we already have this product - if so, move on
+    for (BPBProduct *p in self.products) {
+        if ([p.productBarcode isEqualToString:productBarcode]) {
+            return;
+        }
+    }
+    // Not yet added? Let's add it
+    BPBProduct *newProduct = [[BPBProduct alloc] init];
+    [newProduct newProduct:product withBarcode:productBarcode andImage:image withImpact:impact withDescription:description];
+    [self.products addObject:newProduct];
 }
 @end

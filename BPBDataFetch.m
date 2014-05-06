@@ -7,7 +7,7 @@
 //
 
 #import "BPBDataFetch.h"
-#import <MapKit/MapKit.h>
+#import "BPBConstants.h"
 
 // Google API Key
 #define kGoogleAPIKey "AIzaSyDlFcGWWUhqrcinZfrUbWPr5zzf80mg-ic"
@@ -78,10 +78,59 @@
                                                   // Get the first result
                                                   __weak NSString *storeNameResult = [[jsonObject[@"results"] objectAtIndex:0] valueForKey:@"name"];
                                                   [self.delegate setStoreName:storeNameResult];
+                                                  [self.delegate setStoreLocation:userCoordinate];
+                                                  NSLog(@"Store name from fetcher: %@", storeNameResult);
                                               });
                                           }];
         [dataTask resume];
     }
 }
+
+-(void)fetchProductInfo:(NSString*)barCode
+{
+    // First database to check - using temp outpan.com database
+    NSMutableString *requestString = [[NSMutableString alloc] initWithString:@"http://www.outpan.com/api/get_product.php?barcode="];
+    // Append the passed in barcode
+    [requestString appendString:barCode];
+    
+    NSURL *url = [NSURL URLWithString:requestString];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url];
+    
+    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:req
+                                                     completionHandler:
+                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                          NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                     options:0
+                                                                                                       error:nil];
+                                          // Once done with request tell the
+                                          // delegate what the image and labels should be
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                              
+                                              NSString *urlAddress = [jsonObject[@"images"] objectAtIndex:0];
+                                              NSString *fixedAddress = [urlAddress stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                                              
+                                              UIImage *image = [UIImage imageWithData:
+                                                                [NSData dataWithContentsOfURL:
+                                                                 [NSURL URLWithString: fixedAddress]]];
+                                              if (image == nil) {
+                                                  image = [UIImage imageNamed:@"cups.png"];
+                                              }
+                                              [self.delegate setProductImpact:1 withName:jsonObject[@"name"] withImage:image withDescirption:@"This is a description"];
+                                          });
+                                          
+                                      }];
+    [dataTask resume];
+}
+
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
+{
+    //    NSURLCredential *cred = [NSURLCredential credentialWithUser:@"BigNerdRanch"
+    //                                                       password:@"AchieveNerdvana"
+    //                                                    persistence:NSURLCredentialPersistenceForSession];
+    //    completionHandler(NSURLSessionAuthChallengeUseCredential, cred);
+}
+
+
+
 
 @end

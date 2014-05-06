@@ -10,14 +10,19 @@
 #import "BPBMainScreenViewController.h"
 #import "BPBConstants.h"
 
-@interface BPBProductStateViewController () <NSURLSessionDataDelegate>
 
+
+
+@interface BPBProductStateViewController ()
+
+@property (weak, nonatomic) IBOutlet UIView *textDividerLineView;
 @property (weak, nonatomic) IBOutlet UIImageView *productImageView;
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
-
+@property (weak, nonatomic) IBOutlet UIView *productDescriptionView;
+@property (weak, nonatomic) IBOutlet UIButton *tagButtonView;
+@property (weak, nonatomic) IBOutlet UITextView *productDescriptionTextView;
 @property (nonatomic) NSURLSession *session;
-@property (nonatomic, copy) NSArray *barcode;
 
 @end
 
@@ -52,12 +57,30 @@
     [[self.originsVerifiedView layer] addSublayer:shapeLayer];
     
     self.storeNameLabel.text = self.storeName;
+    self.productImageView.image = self.productImage;
+    self.productNameLabel.text = self.productName;
+    self.productDescriptionTextView.text = self.productDescription;
     
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    _session = [NSURLSession sessionWithConfiguration:config
-                                             delegate:self
-                                        delegateQueue:nil];
-    [self fetchFeed];
+//    if (self.impact == GoodImpact) {
+//        self.tagButtonView.imageView.image = [UIImage imageNamed:@"tag_this_item.png"];
+//    } else if (self.impact == HarmfulImpact) {
+//        self.tagButtonView.imageView.image = [UIImage imageNamed:@"flag_this_item.png"];
+//        self.productDescriptionView.backgroundColor = [UIColor colorWithRed: 255/255.0 green:36/255.0 blue:0/255.0 alpha:1];
+//        self.productDescriptionTextView.textColor = [UIColor whiteColor];
+//
+//        self.textDividerLineView.hidden = YES;
+//    }
+    // Swipe right gesture for scanner view
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(scannerSwipeRight:)];
+    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    swipeRight.numberOfTouchesRequired = 1;
+    [self.swipeReturnView addGestureRecognizer:swipeRight];
+}
+
+-(void)scannerSwipeRight:(UIGestureRecognizer*)g
+{
+    [self.navigationController popToViewController:self.mvc animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,70 +89,23 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)fetchFeed
+
+- (IBAction)tagItem:(id)sender
 {
-    // First database to check
-    NSMutableString *requestString = [[NSMutableString alloc] initWithString:@"http://www.outpan.com/api/get_product.php?barcode="];
-    // Append the passed in barcode
-    [requestString appendString:self.barCode];
-    
-    NSURL *url = [NSURL URLWithString:requestString];
-    NSURLRequest *req = [NSURLRequest requestWithURL:url];
-    
-    NSURLSessionDataTask *dataTask = [self.session dataTaskWithRequest:req
-                                                     completionHandler:
-                                      ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                          NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data
-                                                                                                     options:0
-                                                                                                       error:nil];
-                                          // Once done with request set labels and image
-                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                            
-                                              self.productNameLabel.text = jsonObject[@"name"];
-                                              NSString *urlAddress = [jsonObject[@"images"] objectAtIndex:0];
-                                              NSString *fixedAddress = [urlAddress stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-                                              [self.productImageView setImage:[UIImage imageWithData:
-                                                                             [NSData dataWithContentsOfURL:
-                                                                              [NSURL URLWithString: fixedAddress]]]];
-                                              [self.view setNeedsDisplay];
-                                              
-                                              
-                                          });
-                                          
-                                          NSLog(@"%@", jsonObject);
-                                      }];
-    [dataTask resume];
-}
-
--(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler
-{
-//    NSURLCredential *cred = [NSURLCredential credentialWithUser:@"BigNerdRanch"
-//                                                       password:@"AchieveNerdvana"
-//                                                    persistence:NSURLCredentialPersistenceForSession];
-//    completionHandler(NSURLSessionAuthChallengeUseCredential, cred);
-}
-
-//-(void)loadWebImage:(NSString*)url
-//{
-//    NSString *urlAddress = url;
-//    NSString *fixedAddress = [urlAddress stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-//    NSURL *imageUrl = [NSURL URLWithString:fixedAddress];
-//    NSURLRequest *requestObj = [NSURLRequest requestWithURL:imageUrl];
-//
-//    [self.imageWebView loadRequest:requestObj];
-//    
-//}
-
-                                                         
-
-- (IBAction)back:(id)sender {
-//    [self.presentingViewController dismissViewControllerAnimated:YES
-//                                                      completion:self.dismissBlock];
-   // [self.navigationController presentViewController:self.mvc animated:YES completion:nil];
-    
-    //[self.mvc getStoreNameAndCoordinateForImpact:HarmfulImpact];
-
+    [self.mvc addStore:self.storeName withImpact:self.impact andProduct:self.productBarcode andLocation:self.storeLocation];
+    // Add the product
+    [self.mvc addProduct:self.productName withImpact:self.impact andProductBarCode:self.productBarcode andImage:self.productImage withDescription:self.productDescription];
+    // Return to main view controller
     [self.navigationController popToViewController:self.mvc animated:YES];
-    
 }
+                                                         
+- (IBAction)flagThisItem:(id)sender
+{
+    [self.mvc addStore:self.storeName withImpact:self.impact andProduct:self.productBarcode andLocation:self.storeLocation];
+    // Add the product
+    [self.mvc addProduct:self.productName withImpact:self.impact andProductBarCode:self.productBarcode andImage:self.productImage withDescription:self.productDescription];
+    // Return to main view controller
+    [self.navigationController popToViewController:self.mvc animated:YES];
+}
+
 @end

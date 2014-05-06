@@ -16,6 +16,9 @@
 		F46BFA2B190AD53C007D6385 /* BPBScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA29190AD53C007D6385 /* BPBScannerViewController.xib */; };
 		F46BFA2F190AF676007D6385 /* BPBProductStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46BFA2D190AF676007D6385 /* BPBProductStateViewController.m */; };
 		F46BFA30190AF676007D6385 /* BPBProductStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */; };
+		F48E15951911C898000C575D /* BPBOriginsPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F48E15941911C898000C575D /* BPBOriginsPhotoCell.m */; };
+		F48E15971911C964000C575D /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48E15961911C964000C575D /* PhotoCell.xib */; };
+		F48E15991911CA97000C575D /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = F48E15981911CA97000C575D /* wood.png */; };
 		F48EBE60190851C800935701 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE5F190851C800935701 /* Foundation.framework */; };
 		F48EBE62190851C800935701 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE61190851C800935701 /* CoreGraphics.framework */; };
 		F48EBE64190851C800935701 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE63190851C800935701 /* UIKit.framework */; };
@@ -34,6 +37,15 @@
 		F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */; };
 		F48EBE9B190860CC00935701 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F48EBE9A190860CC00935701 /* MapKit.framework */; };
 		F496983719100976000BD8C3 /* BPBDataFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = F496983619100976000BD8C3 /* BPBDataFetch.m */; };
+		F4F04AFF1912A35D00135F35 /* BPBProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F04AFE1912A35D00135F35 /* BPBProduct.m */; };
+		F4F04B021912A41300135F35 /* BPBStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F04B011912A41300135F35 /* BPBStore.m */; };
+		F4F04B041912ACD800135F35 /* chair.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B031912ACD800135F35 /* chair.png */; };
+		F4F04B071912ACE800135F35 /* cups.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B051912ACE800135F35 /* cups.png */; };
+		F4F04B081912ACE800135F35 /* office_tools.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B061912ACE800135F35 /* office_tools.png */; };
+		F4F04B0A1912ACFC00135F35 /* wallet.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B091912ACFC00135F35 /* wallet.png */; };
+		F4F04B0C1912B5F900135F35 /* tag_this_item.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B0B1912B5F900135F35 /* tag_this_item.png */; };
+		F4F04B0E1912B8DD00135F35 /* flag_this_item.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B0D1912B8DD00135F35 /* flag_this_item.png */; };
+		F4F04B121912C4CA00135F35 /* BPBHarmfulProduct.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B111912C4CA00135F35 /* BPBHarmfulProduct.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +73,10 @@
 		F46BFA2C190AF676007D6385 /* BPBProductStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBProductStateViewController.h; sourceTree = "<group>"; };
 		F46BFA2D190AF676007D6385 /* BPBProductStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBProductStateViewController.m; sourceTree = "<group>"; };
 		F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BPBProductStateViewController.xib; sourceTree = "<group>"; };
+		F48E15931911C898000C575D /* BPBOriginsPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBOriginsPhotoCell.h; sourceTree = "<group>"; };
+		F48E15941911C898000C575D /* BPBOriginsPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBOriginsPhotoCell.m; sourceTree = "<group>"; };
+		F48E15961911C964000C575D /* PhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoCell.xib; sourceTree = "<group>"; };
+		F48E15981911CA97000C575D /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		F48EBE5C190851C800935701 /* Origins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Origins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48EBE5F190851C800935701 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F48EBE61190851C800935701 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -86,6 +102,17 @@
 		F48EBE9A190860CC00935701 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F496983519100976000BD8C3 /* BPBDataFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBDataFetch.h; sourceTree = "<group>"; };
 		F496983619100976000BD8C3 /* BPBDataFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBDataFetch.m; sourceTree = "<group>"; };
+		F4F04AFD1912A35D00135F35 /* BPBProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBProduct.h; sourceTree = "<group>"; };
+		F4F04AFE1912A35D00135F35 /* BPBProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBProduct.m; sourceTree = "<group>"; };
+		F4F04B001912A41300135F35 /* BPBStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBStore.h; sourceTree = "<group>"; };
+		F4F04B011912A41300135F35 /* BPBStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBStore.m; sourceTree = "<group>"; };
+		F4F04B031912ACD800135F35 /* chair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chair.png; sourceTree = "<group>"; };
+		F4F04B051912ACE800135F35 /* cups.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cups.png; sourceTree = "<group>"; };
+		F4F04B061912ACE800135F35 /* office_tools.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = office_tools.png; sourceTree = "<group>"; };
+		F4F04B091912ACFC00135F35 /* wallet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wallet.png; sourceTree = "<group>"; };
+		F4F04B0B1912B5F900135F35 /* tag_this_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tag_this_item.png; sourceTree = "<group>"; };
+		F4F04B0D1912B8DD00135F35 /* flag_this_item.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_this_item.png; sourceTree = "<group>"; };
+		F4F04B111912C4CA00135F35 /* BPBHarmfulProduct.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BPBHarmfulProduct.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +144,10 @@
 		F43309BA19095AD100AB4771 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F4F04AFD1912A35D00135F35 /* BPBProduct.h */,
+				F4F04AFE1912A35D00135F35 /* BPBProduct.m */,
+				F4F04B001912A41300135F35 /* BPBStore.h */,
+				F4F04B011912A41300135F35 /* BPBStore.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -124,12 +155,16 @@
 		F43309BB19095AD700AB4771 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F4F04B111912C4CA00135F35 /* BPBHarmfulProduct.xib */,
 				F43309BD190970E900AB4771 /* BPBAnnotationView.h */,
 				F43309BE190970E900AB4771 /* BPBAnnotationView.m */,
 				F46BFA2E190AF676007D6385 /* BPBProductStateViewController.xib */,
 				F46BFA29190AD53C007D6385 /* BPBScannerViewController.xib */,
 				F48EBE921908554100935701 /* BPBLoginViewController.xib */,
 				F48EBE97190859CC00935701 /* BPBMainScreenViewController.xib */,
+				F48E15961911C964000C575D /* PhotoCell.xib */,
+				F48E15931911C898000C575D /* BPBOriginsPhotoCell.h */,
+				F48E15941911C898000C575D /* BPBOriginsPhotoCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -141,8 +176,6 @@
 				F48EBE911908554100935701 /* BPBLoginViewController.m */,
 				F48EBE95190859CC00935701 /* BPBMainScreenViewController.h */,
 				F48EBE96190859CC00935701 /* BPBMainScreenViewController.m */,
-				F496983519100976000BD8C3 /* BPBDataFetch.h */,
-				F496983619100976000BD8C3 /* BPBDataFetch.m */,
 				F46BFA27190AD53C007D6385 /* BPBScannerViewController.h */,
 				F46BFA28190AD53C007D6385 /* BPBScannerViewController.m */,
 				F46BFA2C190AF676007D6385 /* BPBProductStateViewController.h */,
@@ -154,6 +187,7 @@
 		F48EBE53190851C800935701 = {
 			isa = PBXGroup;
 			children = (
+				F4C8F9A5191959DE00F499F7 /* Utils */,
 				F43309BC19095ADD00AB4771 /* Controller */,
 				F43309BB19095AD700AB4771 /* View */,
 				F43309BA19095AD100AB4771 /* Model */,
@@ -200,6 +234,13 @@
 		F48EBE66190851C800935701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4F04B0D1912B8DD00135F35 /* flag_this_item.png */,
+				F4F04B0B1912B5F900135F35 /* tag_this_item.png */,
+				F4F04B091912ACFC00135F35 /* wallet.png */,
+				F4F04B051912ACE800135F35 /* cups.png */,
+				F4F04B061912ACE800135F35 /* office_tools.png */,
+				F4F04B031912ACD800135F35 /* chair.png */,
+				F48E15981911CA97000C575D /* wood.png */,
 				F46BFA25190AB7A5007D6385 /* origin_goods_ph.png */,
 				F46BFA23190AB7A0007D6385 /* origins_ph.png */,
 				F43309B31909585B00AB4771 /* BPBStoreLocationAnnotation.h */,
@@ -229,6 +270,15 @@
 				F48EBE81190851C800935701 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F4C8F9A5191959DE00F499F7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F496983519100976000BD8C3 /* BPBDataFetch.h */,
+				F496983619100976000BD8C3 /* BPBDataFetch.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,12 +357,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F04B081912ACE800135F35 /* office_tools.png in Resources */,
+				F4F04B0C1912B5F900135F35 /* tag_this_item.png in Resources */,
 				F46BFA26190AB7A5007D6385 /* origin_goods_ph.png in Resources */,
 				F46BFA24190AB7A0007D6385 /* origins_ph.png in Resources */,
+				F4F04B0E1912B8DD00135F35 /* flag_this_item.png in Resources */,
+				F4F04B121912C4CA00135F35 /* BPBHarmfulProduct.xib in Resources */,
+				F4F04B071912ACE800135F35 /* cups.png in Resources */,
+				F4F04B041912ACD800135F35 /* chair.png in Resources */,
 				F48EBE99190859CC00935701 /* BPBMainScreenViewController.xib in Resources */,
 				F46BFA2B190AD53C007D6385 /* BPBScannerViewController.xib in Resources */,
 				F48EBE6A190851C800935701 /* InfoPlist.strings in Resources */,
+				F4F04B0A1912ACFC00135F35 /* wallet.png in Resources */,
 				F46BFA30190AF676007D6385 /* BPBProductStateViewController.xib in Resources */,
+				F48E15991911CA97000C575D /* wood.png in Resources */,
+				F48E15971911C964000C575D /* PhotoCell.xib in Resources */,
 				F48EBE941908554100935701 /* BPBLoginViewController.xib in Resources */,
 				F48EBE72190851C800935701 /* Images.xcassets in Resources */,
 			);
@@ -333,11 +392,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F04AFF1912A35D00135F35 /* BPBProduct.m in Sources */,
 				F48EBE98190859CC00935701 /* BPBMainScreenViewController.m in Sources */,
+				F4F04B021912A41300135F35 /* BPBStore.m in Sources */,
 				F43309B51909585B00AB4771 /* BPBStoreLocationAnnotation.m in Sources */,
 				F43309BF190970E900AB4771 /* BPBAnnotationView.m in Sources */,
 				F48EBE6C190851C800935701 /* main.m in Sources */,
 				F46BFA2A190AD53C007D6385 /* BPBScannerViewController.m in Sources */,
+				F48E15951911C898000C575D /* BPBOriginsPhotoCell.m in Sources */,
 				F48EBE70190851C800935701 /* BPBAppDelegate.m in Sources */,
 				F48EBE931908554100935701 /* BPBLoginViewController.m in Sources */,
 				F496983719100976000BD8C3 /* BPBDataFetch.m in Sources */,
@@ -461,7 +523,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Origins/Origins-Prefix.pch";
 				INFOPLIST_FILE = "Origins/Origins-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -474,7 +538,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Origins/Origins-Prefix.pch";
 				INFOPLIST_FILE = "Origins/Origins-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

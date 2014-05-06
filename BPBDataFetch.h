@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @protocol BPBDataFetchDelegate <NSObject>
-- (void)setStoreName:(NSString*)storeName;
+-(void)setStoreName:(NSString*)storeName;
+-(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescirption:(NSString*)description;
+-(void)setStoreLocation:(CLLocationCoordinate2D)coord;
 @end
 
 @interface BPBDataFetch : NSObject
@@ -18,5 +21,6 @@
 
 +(instancetype)sharedFetcher;
 -(void)getStoreName;
+-(void)fetchProductInfo:(NSString*)barCode;
 
 @end

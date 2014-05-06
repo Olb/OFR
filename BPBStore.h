@@ -7,9 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface BPBStore : NSObject
 
 @property (nonatomic, copy) NSString *storeName;
-@property (nonatomic, copy) NSArray *productBarcodes;
+@property (nonatomic) NSInteger impact;
+@property (nonatomic) NSMutableArray *productBarcodes;
+@property (nonatomic) CLLocationCoordinate2D storeLocation;
+
+-(void)makeStore:(NSString*)store withImpact:(NSInteger)impact andProduct:(NSString*)productBarcode andLocation:(CLLocationCoordinate2D)coord;
+
 @end
