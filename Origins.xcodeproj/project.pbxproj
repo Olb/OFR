@@ -44,6 +44,7 @@
 		F4D05452191AAD5700E20A7A /* BPBGoodStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D05450191AAD5700E20A7A /* BPBGoodStateViewController.m */; };
 		F4D05453191AAD5700E20A7A /* BPBGoodStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D05451191AAD5700E20A7A /* BPBGoodStateViewController.xib */; };
 		F4D0545E191AC31300E20A7A /* BPBProductStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D0545D191AC31300E20A7A /* BPBProductStateViewController.m */; };
+		F4D05460191AC93300E20A7A /* verified_thank_you.png in Resources */ = {isa = PBXBuildFile; fileRef = F4D0545F191AC93300E20A7A /* verified_thank_you.png */; };
 		F4F04AFF1912A35D00135F35 /* BPBProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F04AFE1912A35D00135F35 /* BPBProduct.m */; };
 		F4F04B021912A41300135F35 /* BPBStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F04B011912A41300135F35 /* BPBStore.m */; };
 		F4F04B041912ACD800135F35 /* chair.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F04B031912ACD800135F35 /* chair.png */; };
@@ -118,6 +119,7 @@
 		F4D05451191AAD5700E20A7A /* BPBGoodStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BPBGoodStateViewController.xib; sourceTree = "<group>"; };
 		F4D0545C191AC31300E20A7A /* BPBProductStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBProductStateViewController.h; sourceTree = "<group>"; };
 		F4D0545D191AC31300E20A7A /* BPBProductStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBProductStateViewController.m; sourceTree = "<group>"; };
+		F4D0545F191AC93300E20A7A /* verified_thank_you.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = verified_thank_you.png; sourceTree = "<group>"; };
 		F4F04AFD1912A35D00135F35 /* BPBProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBProduct.h; sourceTree = "<group>"; };
 		F4F04AFE1912A35D00135F35 /* BPBProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBProduct.m; sourceTree = "<group>"; };
 		F4F04B001912A41300135F35 /* BPBStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBStore.h; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		F48EBE66190851C800935701 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F4D0545F191AC93300E20A7A /* verified_thank_you.png */,
 				F4D05443191A7F9100E20A7A /* origin_alternatives.png */,
 				F4D0543F191A7A9D00E20A7A /* not_origin_verified.png */,
 				F4F04B0D1912B8DD00135F35 /* flag_this_item.png */,
@@ -382,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4F04B081912ACE800135F35 /* office_tools.png in Resources */,
+				F4D05460191AC93300E20A7A /* verified_thank_you.png in Resources */,
 				F4F04B0C1912B5F900135F35 /* tag_this_item.png in Resources */,
 				F46BFA26190AB7A5007D6385 /* origin_goods_ph.png in Resources */,
 				F4D05449191A84D600E20A7A /* BPBHarmfulStateViewController.xib in Resources */,
