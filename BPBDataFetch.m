@@ -115,7 +115,7 @@
                                               if (image == nil) {
                                                   image = [UIImage imageNamed:@"cups.png"];
                                               }
-                                              [self.delegate setProductImpact:1 withName:jsonObject[@"name"] withImage:image withDescirption:@"This is a description"];
+                                              [self.delegate setProductImpact:1 withName:jsonObject[@"name"] withImage:image withDescription:@"This is a description"];
                                           });
                                           
                                       }];

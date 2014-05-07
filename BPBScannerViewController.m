@@ -8,6 +8,9 @@
 
 #import "BPBScannerViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "BPBGoodStateViewController.h"
+#import "BPBHarmfulStateViewController.h"
+#import "BPBUnknownStateViewController.h"
 #import "BPBProductStateViewController.h"
 #import "BPBDataFetch.h"
 #import "BPBConstants.h"
@@ -15,7 +18,7 @@
 
 #define HARMFUL_TEST_BARCODE 9780321942050
 #define GOOD_TEST_BARCODE 9781449342753
-#define UNKNOWN_TEST_BARCODE 9780321942050
+#define UNKNOWN_TEST_BARCODE 9780321942051
 
 @interface BPBScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, BPBDataFetchDelegate>
 
@@ -169,16 +172,18 @@
     self.storeNameLabel.text = storeName;
 }
 
--(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescirption:(NSString*)description
+-(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescription:(NSString*)description
 {
     BPBProductStateViewController *psvc;
-    if ([self.detectionString integerValue] == HARMFUL_TEST_BARCODE) {
-        psvc = [[BPBProductStateViewController alloc] initWithNibName:@"BPBHarmfulProduct" bundle:nil];
-    } else if ([self.detectionString integerValue] == GOOD_TEST_BARCODE) {
-        psvc = [[BPBProductStateViewController alloc] init];
+    if (impact == GoodImpact) {
+        psvc = [[BPBGoodStateViewController alloc] init];
+    } else if (impact == HarmfulImpact) {
+        psvc = [[BPBHarmfulStateViewController alloc] init];
+    } else {
+        psvc = [[BPBUnknownStateViewController alloc] init];
     }
     
-    // Reference to self for pop
+    // Reference to main view controller for pop and method calls
     psvc.mvc = self.mvc;
     psvc.storeName = self.storeNameLabel.text;
     psvc.productImage = image;
@@ -187,13 +192,6 @@
     psvc.productName = name;
     psvc.productBarcode = self.detectionString;
     psvc.storeLocation = self.storeLocation;
-    if ([self.detectionString integerValue] == GOOD_TEST_BARCODE) {
-        psvc.impact = GoodImpact;
-    } else if ([self.detectionString integerValue] == HARMFUL_TEST_BARCODE) {
-        psvc.impact = HarmfulImpact;
-    } else if ([self.detectionString integerValue] == UNKNOWN_TEST_BARCODE){
-        
-    }
     
     [self.navigationController pushViewController:psvc animated:YES];
 
@@ -208,7 +206,10 @@
 {
     self.storeNameLabel.text = @"Home Depot";
     self.detectionString = @"9780321942050";
-    [self setProductImpact:HarmfulImpact withName:@"Office Tools" withImage:[UIImage imageNamed:@"office_tools.png"] withDescirption:@"These tools are known to be harmful to the environment"];
+    [self setProductImpact:HarmfulImpact
+                  withName:@"Office Tools"
+                 withImage:[UIImage imageNamed:@"office_tools.png"]
+           withDescription:@"These tools are known to be harmful to the environment"];
 }
 
 - (IBAction)addGoodProduct:(id)sender
@@ -218,7 +219,16 @@
     [self setProductImpact:GoodImpact
                   withName:@"Handcrafted Chair"
                  withImage:[UIImage imageNamed:@"chair.png"]
-           withDescirption:@"This chair has been manufactured in a manner known to be friendly towards the environment"];
+           withDescription:@"This chair has been manufactured in a manner known to be friendly towards the environment"];
+}
+
+- (IBAction)addUnknownProduct:(id)sender {
+    self.storeNameLabel.text = @"Walmart";
+    self.detectionString = @"9780321942051";
+    [self setProductImpact:UnknownImpact
+                  withName:@"Wallet"
+                 withImage:[UIImage imageNamed:@"wallet.png"]
+           withDescription:@"Tweet at the retailer to request Origin Made, sustainable alternatives"];
 }
 
 @end

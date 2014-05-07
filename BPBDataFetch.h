@@ -11,7 +11,7 @@
 
 @protocol BPBDataFetchDelegate <NSObject>
 -(void)setStoreName:(NSString*)storeName;
--(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescirption:(NSString*)description;
+-(void)setProductImpact:(NSInteger)impact withName:(NSString*)name withImage:(UIImage*)image withDescription:(NSString*)description;
 -(void)setStoreLocation:(CLLocationCoordinate2D)coord;
 @end
 
