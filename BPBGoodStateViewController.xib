@@ -10,8 +10,12 @@
                 <outlet property="originSlideTagView" destination="8w6-uc-zC1" id="9G9-W4-Zg8"/>
                 <outlet property="originsTitleDrawingView" destination="1kQ-hr-tpF" id="EOh-uA-njg"/>
                 <outlet property="productDescriptionTextView" destination="XUI-ap-qlg" id="IYU-4M-OIa"/>
+                <outlet property="productImageCollectionView" destination="CTC-JC-9U2" id="OnW-B1-rx6"/>
                 <outlet property="productImageView" destination="oNq-Op-23h" id="WxF-Nq-280"/>
                 <outlet property="productNameLabel" destination="fvI-rw-CBY" id="fAm-Mx-QaV"/>
+                <outlet property="similarGoodsTitleView" destination="sHX-cA-0I9" id="wQi-bT-gjC"/>
+                <outlet property="similarGoodsView" destination="VZQ-Gv-elM" id="pcv-Kv-uDv"/>
+                <outlet property="snapShotView" destination="qdo-hz-OJv" id="BQA-OW-lSs"/>
                 <outlet property="storeNameLabel" destination="lt8-io-JWo" id="7cK-Xu-G1U"/>
                 <outlet property="swipeReturnView" destination="c21-PL-qKa" id="7fm-aJ-TWv"/>
                 <outlet property="view" destination="2Pe-5p-ZdL" id="LXU-i5-Jek"/>
@@ -27,7 +31,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8w6-uc-zC1">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8w6-uc-zC1">
                     <rect key="frame" x="0.0" y="360" width="320" height="208"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -40,7 +44,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dft-Fo-c7I">
-                            <rect key="frame" x="32" y="125" width="257" height="54"/>
+                            <rect key="frame" x="32" y="99" width="257" height="54"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="tag_this_item.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,8 +55,12 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="208" id="03s-9l-GYl"/>
+                        <constraint firstAttribute="width" constant="320" id="hhE-aW-kf1"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQb-52-koL">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQb-52-koL">
                     <rect key="frame" x="0.0" y="30" width="320" height="45"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -65,8 +73,12 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="QrN-5q-0gN"/>
+                        <constraint firstAttribute="width" constant="320" id="tex-ep-7H1"/>
+                    </constraints>
                 </view>
-                <view opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1kQ-hr-tpF">
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kQ-hr-tpF">
                     <rect key="frame" x="0.0" y="75" width="320" height="51"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -80,17 +92,29 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="8ub-EK-bbf"/>
+                        <constraint firstAttribute="height" constant="51" id="cvN-QN-rCV"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frt-J7-Y1n">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="frt-J7-Y1n">
                     <rect key="frame" x="0.0" y="126" width="320" height="5"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.04758533937" green="0.76090236440000003" blue="0.56444971099999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="5" id="I3N-PC-DFA"/>
+                        <constraint firstAttribute="width" constant="320" id="pue-fG-BdY"/>
+                    </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oNq-Op-23h">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oNq-Op-23h">
                     <rect key="frame" x="0.0" y="131" width="320" height="181"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="ZQL-ec-I7H"/>
+                        <constraint firstAttribute="height" constant="181" id="uQC-QW-9re"/>
+                    </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yx1-rZ-45u">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yx1-rZ-45u">
                     <rect key="frame" x="0.0" y="313" width="320" height="47"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -108,58 +132,76 @@
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="47" id="OU4-Ys-GTq"/>
+                        <constraint firstAttribute="width" constant="320" id="fcU-zB-ibM"/>
+                    </constraints>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VZQ-Gv-elM">
-                    <rect key="frame" x="0.0" y="351" width="320" height="217"/>
+                    <rect key="frame" x="0.0" y="351" width="320" height="397"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JfG-PC-2aH">
+                            <rect key="frame" x="55" y="12" width="211" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="share_this_item.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="shareItemButton:" destination="-1" eventType="touchUpInside" id="kmZ-iy-waV"/>
+                            </connections>
+                        </button>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CN6-fz-Hqr">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                            <rect key="frame" x="0.0" y="59" width="320" height="116"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thanks for supporting and protecting the world's forrests." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="241" translatesAutoresizingMaskIntoConstraints="NO" id="T9c-Ao-kzH">
-                                    <rect key="frame" x="40" y="4" width="241" height="40"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Thanks for supporting and protecting the world's forrests." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="233" translatesAutoresizingMaskIntoConstraints="NO" id="T9c-Ao-kzH">
+                                    <rect key="frame" x="40" y="33" width="233" height="49"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" red="0.047585339374210889" green="0.76090236441798942" blue="0.5644497109714891" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZV-4v-brw">
-                            <rect key="frame" x="0.0" y="49" width="320" height="202"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qU6-QQ-Cbq">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="verified_thank_you.png" translatesAutoresizingMaskIntoConstraints="NO" id="lL9-bh-xmE">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="alR-p6-Kr3">
-                                    <rect key="frame" x="0.0" y="44" width="320" height="347"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="jyp-GJ-Nac">
-                                        <size key="itemSize" width="120" height="120"/>
-                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    </collectionViewFlowLayout>
-                                    <cells/>
-                                </collectionView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qdo-hz-OJv">
+                    <rect key="frame" x="0.0" y="525" width="320" height="397"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sHX-cA-0I9">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="origin_alternatives.png" translatesAutoresizingMaskIntoConstraints="NO" id="W4Y-vQ-p2l">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="CTC-JC-9U2">
+                            <rect key="frame" x="0.0" y="51" width="320" height="317"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="Q09-LB-eiQ">
+                                <size key="itemSize" width="120" height="120"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                            <cells/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="xKA-u0-xkp"/>
+                                <outlet property="delegate" destination="-1" id="edh-Bl-kpT"/>
+                            </connections>
+                        </collectionView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c21-PL-qKa">
                     <rect key="frame" x="0.0" y="0.0" width="40" height="568"/>
@@ -169,12 +211,39 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="8w6-uc-zC1" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="3nz-h5-4b7"/>
+                <constraint firstAttribute="trailing" secondItem="WQb-52-koL" secondAttribute="trailing" id="6Hq-aJ-bBG"/>
+                <constraint firstAttribute="bottom" secondItem="8w6-uc-zC1" secondAttribute="bottom" id="6N5-mE-hYZ"/>
+                <constraint firstItem="frt-J7-Y1n" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="83I-Ff-ugQ"/>
+                <constraint firstItem="1kQ-hr-tpF" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="Cgi-iF-2C0"/>
+                <constraint firstItem="Yx1-rZ-45u" firstAttribute="top" secondItem="oNq-Op-23h" secondAttribute="bottom" constant="1" id="IeT-pq-YiW"/>
+                <constraint firstItem="8w6-uc-zC1" firstAttribute="top" secondItem="Yx1-rZ-45u" secondAttribute="bottom" id="Imv-VZ-qSG"/>
+                <constraint firstItem="oNq-Op-23h" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="JTI-U3-dTc"/>
+                <constraint firstItem="Yx1-rZ-45u" firstAttribute="top" secondItem="oNq-Op-23h" secondAttribute="bottom" constant="1" id="Jdv-Db-opn"/>
+                <constraint firstItem="WQb-52-koL" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="MMh-BA-tTS"/>
+                <constraint firstItem="1kQ-hr-tpF" firstAttribute="top" secondItem="WQb-52-koL" secondAttribute="bottom" id="Nlf-yI-CUN"/>
+                <constraint firstItem="Yx1-rZ-45u" firstAttribute="leading" secondItem="2Pe-5p-ZdL" secondAttribute="leading" id="Sfo-L7-TFO"/>
+                <constraint firstAttribute="trailing" secondItem="Yx1-rZ-45u" secondAttribute="trailing" id="Uax-ax-UGA"/>
+                <constraint firstAttribute="trailing" secondItem="8w6-uc-zC1" secondAttribute="trailing" id="ZBs-J8-JT3"/>
+                <constraint firstItem="oNq-Op-23h" firstAttribute="top" secondItem="frt-J7-Y1n" secondAttribute="bottom" id="Zze-vJ-KEy"/>
+                <constraint firstItem="1kQ-hr-tpF" firstAttribute="top" secondItem="WQb-52-koL" secondAttribute="bottom" id="cNJ-FE-bFa"/>
+                <constraint firstItem="frt-J7-Y1n" firstAttribute="top" secondItem="1kQ-hr-tpF" secondAttribute="bottom" id="cdr-Af-Xz2"/>
+                <constraint firstAttribute="trailing" secondItem="oNq-Op-23h" secondAttribute="trailing" id="iNa-fg-aFp"/>
+                <constraint firstItem="frt-J7-Y1n" firstAttribute="top" secondItem="1kQ-hr-tpF" secondAttribute="bottom" id="iiy-kE-79s"/>
+                <constraint firstItem="WQb-52-koL" firstAttribute="top" secondItem="2Pe-5p-ZdL" secondAttribute="top" constant="30" id="lTL-Bk-mlL"/>
+                <constraint firstAttribute="trailing" secondItem="frt-J7-Y1n" secondAttribute="trailing" id="ovY-Z0-arg"/>
+                <constraint firstItem="8w6-uc-zC1" firstAttribute="top" secondItem="Yx1-rZ-45u" secondAttribute="bottom" id="pml-8O-Gan"/>
+                <constraint firstAttribute="trailing" secondItem="1kQ-hr-tpF" secondAttribute="trailing" id="rkq-Fb-rbD"/>
+                <constraint firstItem="oNq-Op-23h" firstAttribute="top" secondItem="frt-J7-Y1n" secondAttribute="bottom" id="ruD-a8-6tw"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
+        <image name="origin_alternatives.png" width="336" height="44"/>
+        <image name="share_this_item.png" width="256" height="52"/>
         <image name="tag_this_item.png" width="257" height="54"/>
-        <image name="verified_thank_you.png" width="335" height="46"/>
     </resources>
 </document>

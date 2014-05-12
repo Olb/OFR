@@ -7,6 +7,7 @@
 //
 
 #import "BPBHarmfulStateViewController.h"
+#import <Social/Social.h>
 
 @interface BPBHarmfulStateViewController ()
 
@@ -14,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *productDescriptionTextView;
+@property (weak, nonatomic) IBOutlet UIView *originFirstAlertView;
+@property (weak, nonatomic) IBOutlet UIView *originShareAlertView;
 
 @end
 
@@ -50,8 +53,8 @@
     [self.mvc addStore:self.storeName withImpact:self.impact andProduct:self.productBarcode andLocation:self.storeLocation];
     // Add the product
     [self.mvc addProduct:self.productName withImpact:self.impact andProductBarCode:self.productBarcode andImage:self.productImage withDescription:self.productDescription];
-    // Return to main view controller
-    [self.navigationController popToViewController:self.mvc animated:YES];
+    // Present option to share
+    [self replaceFirstTagView];
 }
 
 
@@ -59,6 +62,65 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)shareAlertButton:(id)sender
+{
+    
+    SLComposeViewController *twitterController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            
+            [twitterController dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                    [self.navigationController popToViewController:self.mvc animated:YES];
+                    
+                }
+                    break;
+            }};
+        
+        [twitterController setInitialText:[NSString stringWithFormat:@"I flagged an Origin Confirmed envirnonmentally harmful product @%@ Please stock Origin Made Alternatives.", self.storeName]];
+        [twitterController setCompletionHandler:completionHandler];
+        [self.navigationController presentViewController:twitterController animated:YES completion:nil];
+    }
+    
+}
+
+-(void)replaceFirstTagView
+{
+    // Remove the first view with tagging
+    [UIView transitionWithView:self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        [self.originFirstAlertView setHidden:YES];
+                    }
+                    completion:nil];
+    
+    // Add new view for thank you
+    [UIView transitionWithView:self.view
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        [self.originShareAlertView setHidden:NO];
+                    }
+                    completion:^(BOOL finished){
+                        // TODO
+                    }];
 }
 
 @end

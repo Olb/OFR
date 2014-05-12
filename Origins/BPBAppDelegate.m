@@ -16,7 +16,6 @@
     // Override point for customization after application launch.
     
     self.rootViewController = [[BPBLoginViewController alloc] init];
-    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.rootViewController];
     self.window.rootViewController = self.rootViewController;
     [self.window addSubview:self.navigationController.view];

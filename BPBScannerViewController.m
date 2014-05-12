@@ -204,17 +204,17 @@
 
 - (IBAction)addBadProduct:(id)sender
 {
-    self.storeNameLabel.text = @"Home Depot";
+    self.storeNameLabel.text = @"BPBHome Depot";
     self.detectionString = @"9780321942050";
     [self setProductImpact:HarmfulImpact
                   withName:@"Office Tools"
                  withImage:[UIImage imageNamed:@"office_tools.png"]
-           withDescription:@"These tools are known to be harmful to the environment"];
+           withDescription:@"Greenpeace has identified this item to be harmful to the environment and unsustainably made."];
 }
 
 - (IBAction)addGoodProduct:(id)sender
 {
-    self.storeNameLabel.text = @"Joe's Mill";
+    self.storeNameLabel.text = @"BPBJoe'sMill";
     self.detectionString = @"9781449342753";
     [self setProductImpact:GoodImpact
                   withName:@"Handcrafted Chair"
@@ -223,7 +223,7 @@
 }
 
 - (IBAction)addUnknownProduct:(id)sender {
-    self.storeNameLabel.text = @"Walmart";
+    self.storeNameLabel.text = @"BPBTestMart";
     self.detectionString = @"9780321942051";
     [self setProductImpact:UnknownImpact
                   withName:@"Wallet"

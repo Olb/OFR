@@ -15,6 +15,8 @@
 #import "BPBOriginsPhotoCell.h"
 #import "BPBProduct.h"
 #import "BPBStore.h"
+#import "BPBAnnotationView.h"
+#import "BPBAnnotationCalloutView.h"
 
 @interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -29,7 +31,7 @@
 @property (nonatomic) NSMutableArray *productCollectionDisplayArray;
 @property (nonatomic) NSMutableArray *stores;
 @property (nonatomic) NSMutableArray *products;
-
+@property BOOL snaphotIsDown;
 @end
 
 @implementation BPBMainScreenViewController
@@ -81,9 +83,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    // Stop snapshot from going up when it's already up
+    self.snaphotIsDown = NO;
+    // Create array for holding snapshot products if not already created
     if (!self.productCollectionDisplayArray) {
         self.productCollectionDisplayArray = [[NSMutableArray alloc] init];
     }
+    // When reloading, pulling new data so go ahead and remove all old objects
     [self.productCollectionDisplayArray removeAllObjects];
     // Add known products
     if (self.products.count > 0) {
@@ -167,7 +173,7 @@
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     // This is the user, don't do anything special
-    if ([annotation isKindOfClass:[BPBStoreLocationAnnotation class]] == NO) {
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
     
@@ -178,24 +184,45 @@
     NSString *annotationIdentifier = [BPBStoreLocationAnnotation reusableIdentifierForPinColor:senderAnnotation.pinColor];
     
     // Using retrieved identifier, attempt to reuse pin in the sender Map View
-    MKPinAnnotationView *pinView =  (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+    // Using MKAnnotaionView instead of MKPinAnnotationView for custom background
+    BPBAnnotationView *pinView =  (BPBAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
     
     if (!pinView) {
-        // failed to reuse a in, create it
-        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:(BPBStoreLocationAnnotation *)senderAnnotation reuseIdentifier:annotationIdentifier];
-        pinView.animatesDrop = YES;
-        pinView.canShowCallout = YES;
+        // failed to reuse a pin, create it
+        pinView = [[BPBAnnotationView alloc] initWithAnnotation:(BPBStoreLocationAnnotation *)senderAnnotation reuseIdentifier:annotationIdentifier];
+        //pinView.animatesDrop = YES;
+        pinView.canShowCallout = NO;
         
     }
     
     // Make sure the color of pin matches the color of the annotaion
-    pinView.pinColor = senderAnnotation.pinColor;
-    
+    if (senderAnnotation.pinColor == MKPinAnnotationColorGreen) {
+        pinView.image = [UIImage imageNamed:@"green_circle.png"];
+    } else {
+        pinView.image = [UIImage imageNamed:@"red_circle.png"];
+    }
+        
     return pinView;
     
 }
 
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
+        BPBAnnotationCalloutView *calloutView = (BPBAnnotationCalloutView *)[[[NSBundle mainBundle] loadNibNamed:@"BPBAnnotationCalloutView" owner:self options:nil] objectAtIndex:0];
+        CGRect calloutViewFrame = calloutView.frame;
+        calloutViewFrame.origin = CGPointMake(-calloutViewFrame.size.width/2+10, -calloutViewFrame.size.height-10);
+        calloutView.frame = calloutViewFrame;
+        [calloutView.annotationCalloutLabel setText:[(BPBStoreLocationAnnotation*)[view annotation] title]];
+        [view addSubview:calloutView];
+    }
+}
 
+-(void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    for (UIView *subview in view.subviews ){
+        [subview removeFromSuperview];
+    }
+}
 
 - (NSUInteger)supportedInterfaceOrientations
 {
@@ -208,6 +235,10 @@
 #pragma mark - Swiping
 -(void)snapShotSwipeUp:(UIGestureRecognizer*)g
 {
+    if (!self.snaphotIsDown) {
+        return;
+    }
+    self.snaphotIsDown = NO;
     // Swipe up pulls up origins snapshots
     CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
@@ -223,6 +254,10 @@
 
 -(void)snapShowSwipeDown:(UIGestureRecognizer*)g
 {
+    if (self.snaphotIsDown) {
+        return;
+    }
+    self.snaphotIsDown = YES;
     // Swipe down lowers snapshots
     CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+325,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
@@ -257,7 +292,6 @@
 #pragma mark - UICollectionView Datasource
 // 1
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-   // NSString *searchTerm = nil;
     return self.productCollectionDisplayArray.count;
 }
 // 2

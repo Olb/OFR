@@ -11,6 +11,7 @@
 #import "BPBConstants.h"
 #import "BPBOriginsPhotoCell.h"
 #import "BPBProduct.h"
+#import <Social/Social.h>
 
 @interface BPBUnknownStateViewController () < UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -22,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *storeNameLabel;
 @property (weak, nonatomic) IBOutlet UIView *productDescriptionView;
-
+@property BOOL snapShotIsUp;
 @property (weak, nonatomic) IBOutlet UITextView *productDescriptionTextView;
 
 @end
@@ -47,15 +48,13 @@
     self.productNameLabel.text = self.productName;
     self.productDescriptionTextView.text = self.productDescription;
     
-    // Snapshot view swipes
-    // Swipe up gesture for Snapshot
-    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(snapShotSwipeUp:)];
-    swipeUp.numberOfTouchesRequired = 1;
-    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-    [self.snapShotTitleBarView addGestureRecognizer:swipeUp];
+    // Tap gesture for snapshot view
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapSimilarGoods:)];
+    tap.numberOfTouchesRequired = 1;
+    [self.snapShotTitleBarView addGestureRecognizer:tap];
     
     // Swipe down gesture for Snapshot
-    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(snapShowSwipeDown:)];
+    UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
     swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
     swipeDown.numberOfTouchesRequired = 1;
     [self.snapShotTitleBarView addGestureRecognizer:swipeDown];
@@ -99,7 +98,6 @@
     [self.productCollectionDisplayArray addObject:four];
     [self.productCollectionDisplayArray addObject:five];
     
-    [self.imageCollectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,6 +107,38 @@
 }
 
 - (IBAction)requestAlternative:(id)sender {
+    
+    SLComposeViewController *twitterController=[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    
+    
+    if([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewControllerCompletionHandler __block completionHandler=^(SLComposeViewControllerResult result){
+            
+            [twitterController dismissViewControllerAnimated:YES completion:nil];
+            
+            switch(result){
+                case SLComposeViewControllerResultCancelled:
+                default:
+                {
+                    NSLog(@"Cancelled.....");
+                    
+                }
+                    break;
+                case SLComposeViewControllerResultDone:
+                {
+                    NSLog(@"Posted....");
+                    [self.navigationController popToViewController:self.mvc animated:YES];
+                    
+                }
+                    break;
+            }};
+        
+        [twitterController setInitialText:[NSString stringWithFormat:@"@%@ Please stock Origin Made Alternatives", self.storeName]];
+        [twitterController setCompletionHandler:completionHandler];
+        [self.navigationController presentViewController:twitterController animated:YES completion:nil];
+    }
+    
 }
 
 #pragma mark - UICollectionView Datasource
@@ -146,11 +176,15 @@
     return UIEdgeInsetsMake(10, 30, 10, 30);
 }
 
-#pragma mark - Swiping
--(void)snapShotSwipeUp:(UIGestureRecognizer*)g
+#pragma mark - Gestures
+-(void)swipeDown:(UIGestureRecognizer*)g
 {
-    // Swipe up pulls up origins snapshots
-    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-290,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
+    if (!self.snapShotIsUp) {
+        return;
+    }
+    self.snapShotIsUp = NO;
+    // Swipe down lowers snapshots
+    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+275,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
@@ -162,10 +196,14 @@
                      }];
 }
 
--(void)snapShowSwipeDown:(UIGestureRecognizer*)g
+-(void)tapSimilarGoods:(UITapGestureRecognizer*)t
 {
-    // Swipe down lowers snapshots
-    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y+290,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
+    if (self.snapShotIsUp) {
+        return;
+    }
+    self.snapShotIsUp = YES;
+    // Show the snapshot of similar goods
+    CGRect snapShotRect = CGRectMake(self.snapShotView.frame.origin.x, self.snapShotView.frame.origin.y-275,self.snapShotView.frame.size.width , self.snapShotView.frame.size.height);
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
