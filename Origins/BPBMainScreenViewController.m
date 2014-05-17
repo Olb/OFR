@@ -17,8 +17,9 @@
 #import "BPBStore.h"
 #import "BPBAnnotationView.h"
 #import "BPBAnnotationCalloutView.h"
+#import "BPBGenericAnnotation.h"
 
-@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface BPBMainScreenViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) MKPlacemark *placemark;
@@ -58,10 +59,9 @@
     self.mapView.showsUserLocation = YES;
     
     // Swipe up gesture for Snapshot
-    UISwipeGestureRecognizer *swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(snapShotSwipeUp:)];
-    swipeUp.numberOfTouchesRequired = 1;
-    swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
-    [self.snapShotTitleBarView addGestureRecognizer:swipeUp];
+    UITapGestureRecognizer *tapSnapshot = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(snapShotUp:)];
+    tapSnapshot.numberOfTouchesRequired = 1;
+    [self.snapShotTitleBarView addGestureRecognizer:tapSnapshot];
     
     // Swipe down gesture for Snapshot
     UISwipeGestureRecognizer *swipeDown = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(snapShowSwipeDown:)];
@@ -69,11 +69,10 @@
     swipeDown.numberOfTouchesRequired = 1;
     [self.snapShotTitleBarView addGestureRecognizer:swipeDown];
     
-    // Swipe right gesture for scanner view
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(scannerSwipeRight:)];
-    swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
-    swipeRight.numberOfTouchesRequired = 1;
-    [self.scannerTouchView addGestureRecognizer:swipeRight];
+    // Tap gesture for scanner view
+    UITapGestureRecognizer *tapScanner = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showScanner:)];
+    tapScanner.numberOfTouchesRequired = 1;
+    [self.scannerTouchView addGestureRecognizer:tapScanner];
     
     // Collection view
     UINib *cellNib = [UINib nibWithNibName:@"PhotoCell" bundle:nil];
@@ -175,40 +174,51 @@
     // This is the user, don't do anything special
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
-    }
-    
-    // Typecast the annotation for which Map View has fired this delegate
-    BPBStoreLocationAnnotation *senderAnnotation = (BPBStoreLocationAnnotation*)annotation;
-    
-    // Use defined class method to get reusable identifier for the pin about to be created
-    NSString *annotationIdentifier = [BPBStoreLocationAnnotation reusableIdentifierForPinColor:senderAnnotation.pinColor];
-    
-    // Using retrieved identifier, attempt to reuse pin in the sender Map View
-    // Using MKAnnotaionView instead of MKPinAnnotationView for custom background
-    BPBAnnotationView *pinView =  (BPBAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
-    
-    if (!pinView) {
-        // failed to reuse a pin, create it
-        pinView = [[BPBAnnotationView alloc] initWithAnnotation:(BPBStoreLocationAnnotation *)senderAnnotation reuseIdentifier:annotationIdentifier];
-        //pinView.animatesDrop = YES;
-        pinView.canShowCallout = NO;
-        
-    }
-    
-    // Make sure the color of pin matches the color of the annotaion
-    if (senderAnnotation.pinColor == MKPinAnnotationColorGreen) {
-        pinView.image = [UIImage imageNamed:@"green_circle.png"];
+    } else if ([annotation isKindOfClass:[BPBGenericAnnotation class]]) {
+        BPBGenericAnnotation *genericAnnotation = (BPBGenericAnnotation*)annotation;
+        MKPinAnnotationView *av = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"GenericId"];
+        if (!av) {
+            av = [[MKPinAnnotationView alloc] initWithAnnotation:genericAnnotation reuseIdentifier:@"GenericId"];
+            av.canShowCallout = YES;
+            av.pinColor = MKPinAnnotationColorGreen;
+        }
+        return av;
     } else {
-        pinView.image = [UIImage imageNamed:@"red_circle.png"];
-    }
+        // Typecast the annotation for which Map View has fired this delegate
+        BPBStoreLocationAnnotation *senderAnnotation = (BPBStoreLocationAnnotation*)annotation;
         
-    return pinView;
+        // Use defined class method to get reusable identifier for the pin about to be created
+        NSString *annotationIdentifier = [BPBStoreLocationAnnotation reusableIdentifierForPinColor:senderAnnotation.pinColor];
+        
+        // Using retrieved identifier, attempt to reuse pin in the sender Map View
+        // Using MKAnnotaionView instead of MKPinAnnotationView for custom background
+        BPBAnnotationView *pinView =  (BPBAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotationIdentifier];
+        if (!pinView) {
+            // failed to reuse a pin, create it
+            pinView = [[BPBAnnotationView alloc] initWithAnnotation:(BPBStoreLocationAnnotation *)senderAnnotation reuseIdentifier:annotationIdentifier];
+            
+            pinView.canShowCallout = NO;
+            
+        }
+        
+        // Make sure the color of pin matches the color of the annotaion
+        if (senderAnnotation.pinColor == MKPinAnnotationColorGreen) {
+            pinView.image = [UIImage imageNamed:@"green_circle.png"];
+        } else {
+            pinView.image = [UIImage imageNamed:@"red_circle.png"];
+        }
+        
+        return pinView;
+    }
+    
+    return nil;
     
 }
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if(![view.annotation isKindOfClass:[MKUserLocation class]]) {
+    if(![view.annotation isKindOfClass:[MKUserLocation class]] && ![view
+                                                                    .annotation isKindOfClass:[BPBGenericAnnotation class]]) {
         BPBAnnotationCalloutView *calloutView = (BPBAnnotationCalloutView *)[[[NSBundle mainBundle] loadNibNamed:@"BPBAnnotationCalloutView" owner:self options:nil] objectAtIndex:0];
         CGRect calloutViewFrame = calloutView.frame;
         calloutViewFrame.origin = CGPointMake(-calloutViewFrame.size.width/2+10, -calloutViewFrame.size.height-10);
@@ -233,7 +243,7 @@
 }
 
 #pragma mark - Swiping
--(void)snapShotSwipeUp:(UIGestureRecognizer*)g
+-(void)snapShotUp:(UIGestureRecognizer*)g
 {
     if (!self.snaphotIsDown) {
         return;
@@ -271,7 +281,7 @@
                      }];
 }
 
--(void)scannerSwipeRight:(UIGestureRecognizer*)g
+-(void)showScanner:(UIGestureRecognizer*)g
 {
     // Swipe right in from left side launches scanner
     BPBScannerViewController *svc = [[BPBScannerViewController alloc] init];
@@ -358,4 +368,37 @@
     [newProduct newProduct:product withBarcode:productBarcode andImage:image withImpact:impact withDescription:description];
     [self.products addObject:newProduct];
 }
+
+-(void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar
+{
+    NSLog(@"Searching...");
+    [theSearchBar resignFirstResponder];
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:theSearchBar.text completionHandler:^(NSArray *placemarks, NSError *error) {
+        //Error checking
+        
+        for (CLPlacemark *p in placemarks) {
+            if ([p.location distanceFromLocation:self.locationManager.location] < ONE_MILE * 100) {
+                CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                NSLog(@"%@", placemark);
+                MKCoordinateRegion region;
+                region.center = self.mapView.centerCoordinate;
+                
+                
+                region.span = self.mapView.region.span;
+                BPBGenericAnnotation *ga = [[BPBGenericAnnotation alloc] initWithCoordinate:placemark.location.coordinate title:placemark.name subTitle:nil];
+                [self.mapView setRegion:region animated:YES];
+                [self.mapView addAnnotation:ga];
+            }
+        }
+        
+    }];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    searchBar.text = @"";
+    [searchBar resignFirstResponder];
+}
+
 @end

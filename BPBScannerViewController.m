@@ -214,7 +214,7 @@
 
 - (IBAction)addGoodProduct:(id)sender
 {
-    self.storeNameLabel.text = @"BPBJoe'sMill";
+    self.storeNameLabel.text = @"BPBJoe'sMill and tractors";
     self.detectionString = @"9781449342753";
     [self setProductImpact:GoodImpact
                   withName:@"Handcrafted Chair"
